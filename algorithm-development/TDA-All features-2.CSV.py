@@ -114,7 +114,7 @@ features_entropy = my_tda_entropy([point_cloud])
 print("Extracted persistence entropy features:")
 print(features_entropy)
 
-# Save the homology diagrams (H0 and H1) to CSV files (for later MATLAB analysis)
+# Save the homology diagrams (H0 and H1) to CSV files (for later postanalysis analysis)
 print("Saving homology diagrams for H0 and H1...")
 my_tda_entropy.save_homology_dimensions(diagram_index=0, filename_prefix="point_cloud")
 
