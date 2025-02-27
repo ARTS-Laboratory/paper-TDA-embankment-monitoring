@@ -41,7 +41,7 @@ for i in range(num_cols):
     # Flatten the axes array so we can access subplots with a single index.
     axes = axes.flatten()
     
-    # 6) Loop over each column as the X-axis.
+    #  Loop over each column as the X-axis.
     for j in range(num_cols):
         x_col = df.columns[j]  #  the x-axis in the subplot.
         ax = axes[j]           # selecting the j-th subplot in the grid.
@@ -69,7 +69,7 @@ for i in range(num_cols):
         # Always display tick labels (we set their font size for clarity).
         ax.tick_params(axis='both', labelsize=7)
     
-    # 7) Hide any extra subplots if the grid has more cells than needed.
+    #  Hide any extra subplots if the grid has more cells than needed.
     for k in range(num_cols, grid_size * grid_size):
         axes[k].axis("off")
     

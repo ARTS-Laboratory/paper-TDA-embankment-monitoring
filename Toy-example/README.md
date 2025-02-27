@@ -1,36 +1,52 @@
+
+The strategies are:
+
+1- To create different synthetic point clouds (data sets) using simple slop with abnormalities such as humps and cavities.  
+2- To run the TDA over created point clouds.
+3- To extract the prime features from the dataset.
+4- To demonstrate the features' trend over different sample points.
+5- To showcase how the features change when layered on top of one another.
+
 # Toy-example:
 
-The strategy is to create different synthetic point clouds (data sets) using simple slop with abnormalities such as humps and cavities.  
-To create the slpos, the two main codes are used:
-1- Meshed slop with hump.py: This code creates a hump at different locations with different diameters.
-   By tuning the parameters, any arbitrary shape can be created.
-2- meshed slope with cavity_2.py: This code creates a cavity at different locations with different diameters.
-   By tuning the parameters, any arbitrary shape can be created.
+## Codes:
 
- Note: After creating the meshed slope, the point clouds can be captured using the Cloudcompare software.
-       Then, the point cloud can be saved in the .las format.
+### meshed slope with cavity_2.py
+* This code, as run once, demonstrates:
+  create a slope with cavities. The cavities' dimensions and location can be adjusted by the user.
+* The output of this code is a shape in the .obj format.
+Note: The .obj will be imported into the CloudCompare software so that the point clouds will be created as.las files.
 
- The next step is to run the TDA over pointclouds.
- The TDA's main function is "TDA-teast". However, this function is developed and used to capture all 16 features along with the RANSCAN algorithm for more optimisation in terms of 
- the system memory usage. The value of sampling points "m" and iteration "k" can be adjusted as needed. Moreover, the homology dimension can be selected. (H0, H1, H2).
+### meshed slope with hump.py
+* This code, as run once, demonstrates:
+  create a slope with humps. The humps' dimensions and location can be adjusted by the user.
+* The output of this code is a shape in the .obj format.
+Note: The .obj will be imported into the CloudCompare software so that the point clouds will be created as.las files.
+  
 
- Note: The features are also saved as a CSV file in the directory.
+### Abnormalities_Features.py
+* This code, as run once, demonstrates:
+  The different plots (features vs. features) are 16 * (4*4 grid) plots.
+* The input of this code is an .xlsx " maim/Data/Abnormalities_Features.xlsx" file that comes from the " TDA-feature extraction.py".
+* This code gets the input and generates 16 separate figures.
 
- ** Another code is developed: "TDA-features with graph-3" to demonstrate the overall and normalize the value of features over several different numbers of sampling points to capture 
- the convergence ratio of each feature. 
 
- ** To illustrate the changes in features with respect to each other, a grid plot was created using "Abnormalities_Features.py." This script accepts an input file from the Data folder to plot all features.
+### TDA-feature extraction.py
+* This code, as run once, demonstrates:
+  The features ( as a vector) for each specific abnormality with a fixed number of points (m) @ K=10 iterations.
+  Then, a dataframe will be created from those vectors as a matrix to be fitted as input into "Abnormalities_Features.py".
+* This code calculates the median of the features at the end and saves it as a .CSV file.
+  Note: This code needs to be developed to make a datafarme once as run.   
+
+### TDA-all features with graph-3.py
+* This code, as run once, demonstrates:
+  The overall trend of all features crosses the different number of points (e.g., m_values = [50, 200, 500, 1000, 1500, 2500, 3500, 4500]) @ k=10.
+* This code normalizes all features value [0,1] then plots all of them in the single graph.
+  
+
+# Toy-example:
+
+## plots:
+
+The plots folder includes the 16 figures from "Abnormalities_Features.py" as it is run.
  
-
-## Codes
-
-### Abnormalities_Features
-* Describe what the code demonstrate
-* Describe what the code demonstrate
-* Describe what the code demonstrate
-
-
-### Another code
-* Describe what the code demonstrate
-* Describe what the code demonstrate
-* Describe what the code demonstrate
