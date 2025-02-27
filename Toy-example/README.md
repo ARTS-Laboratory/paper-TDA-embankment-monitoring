@@ -1,4 +1,5 @@
-Toy-example:
+# Toy-example:
+
 The strategy is to create different synthetic point clouds (data sets) using simple slop with abnormalities such as humps and cavities.  
 To create the slpos, the two main codes are used:
 1- Meshed slop with hump.py: This code creates a hump at different locations with different diameters.
@@ -21,4 +22,15 @@ To create the slpos, the two main codes are used:
  ** To illustrate the changes in features with respect to each other, a grid plot was created using "Abnormalities_Features.py." This script accepts an input file from the Data folder to plot all features.
  
 
- 
+## Codes
+
+### Abnormalities_Features
+* Describe what the code demonstrate
+* Describe what the code demonstrate
+* Describe what the code demonstrate
+
+
+### Another code
+* Describe what the code demonstrate
+* Describe what the code demonstrate
+* Describe what the code demonstrate
