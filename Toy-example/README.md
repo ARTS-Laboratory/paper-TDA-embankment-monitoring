@@ -15,8 +15,10 @@ To create the slpos, the two main codes are used:
 
  Note: The features are also saved as a CSV file in the directory.
 
- Another code is developed: "TDA-features with graph-3" to demonstrate the overall and normalize the value of features over several different numbers of sampling points to capture 
- the convergence ration of each feature.    
+ ** Another code is developed: "TDA-features with graph-3" to demonstrate the overall and normalize the value of features over several different numbers of sampling points to capture 
+ the convergence ratio of each feature. 
+
+ ** To illustrate the changes in features with respect to each other, a grid plot was created using "Abnormalities_Features.py." This script accepts an input file from the Data folder to plot all features.
  
 
  
