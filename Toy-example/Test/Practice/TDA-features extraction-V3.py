@@ -8,7 +8,7 @@ import matplotlib.colors as mcolors
 import matplotlib.cm as cm
 
 class tda:
-    def __init__(self, homo_dim=2, fts='all') -> None:
+    def __init__(self, homo_dim=1, fts='all') -> None:
         """
         Initialize the TDA feature extractor.
         
@@ -184,7 +184,7 @@ def process_multiple_las_files():
     
     # 3) Create an instance of the tda class
     #    If you want up to H1, set homo_dim=1. For up to H2, set homo_dim=2, etc.
-    my_tda = tda(homo_dim=2, fts='all')
+    my_tda = tda(homo_dim=1, fts='all')
     
     # 4) We'll store the median features for each file in this list
     accumulated_data = []
