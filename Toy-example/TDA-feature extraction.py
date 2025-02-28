@@ -7,7 +7,7 @@ from gtda.diagrams import PersistenceEntropy, NumberOfPoints, Amplitude
 #from sklearn.linear_model import RANSACRegressor  
 
 class tda:
-    def __init__(self, homo_dim=1, fts='all') -> None:
+    def __init__(self, homo_dim=2, fts='all') -> None:
         """
         Initialize the TDA feature extractor.
         
@@ -19,7 +19,7 @@ class tda:
                        'amp' for amplitude features,
                        'all' for concatenating all of these features.
         """
-        self.homology_dimensions = list(range(homo_dim + 1))
+        self.homology_dimensions = list(range(homo_dim + 2))
         print("Homology dimensions:", self.homology_dimensions)
         self.persistence = VietorisRipsPersistence(
             metric="euclidean",
@@ -34,7 +34,7 @@ class tda:
         self.metrics = ["bottleneck", "wasserstein", "landscape", "persistence_image", "betti", "heat"]
         self.diag = None
 
-    def random_sampling_consensus(self, pcd, m=3000, K=10):
+    def random_sampling_consensus(self, pcd, m=500, K=10):
         
         
         features_list = []
@@ -126,7 +126,7 @@ class tda:
 import laspy
 
 #  file path to your LAS file
-file_path = "C:/Users/GOLZARDM/.spyder-py3/Simple slop.las"
+file_path = "C:/Users/GOLZARDM/.spyder-py3/surface_with_smooth_circular_cavity_10.las"
 print("opening LAS file:", file_path)
 with laspy.open(file_path) as f:
     las = f.read()
@@ -143,7 +143,7 @@ print("Using full point cloud for random sampling consensus...")
 my_tda = tda(homo_dim=1, fts='all')  # whole feaures extraction
 
 # Run the random sampling for sample m points and repeat K times.
-m = 3000  
+m = 500  
 K = 10  
 iteration_features = my_tda.random_sampling_consensus(point_cloud, m=m, K=K)
 #print("Consensus features from random sampling:", consensus_features)
