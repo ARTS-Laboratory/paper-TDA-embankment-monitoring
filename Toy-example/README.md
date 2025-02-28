@@ -50,5 +50,5 @@ Note: The .obj will be imported into the CloudCompare software so that the point
 
 ## plots:
 
-The plots folder includes the 16 figures from "Abnormalities_Features.py" as it is run.
+The plots folder includes the 16 figures from "Abnormalities_Features.py" and the accumulated feature value across the different number of points from " TDA-all features with graph-3.py".
  
