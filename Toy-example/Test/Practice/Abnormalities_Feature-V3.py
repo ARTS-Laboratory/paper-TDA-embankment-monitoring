@@ -4,37 +4,39 @@ import numpy as np
 import matplotlib.pyplot as plt
 import itertools
 
-# Load the Excel file
-file_path = "Abnormalities_Features - V3.xlsx"  # Change this to your actual file path
+# File loading
+file_path = "Abnormalities_Features - V3.xlsx"
 xls = pd.ExcelFile(file_path)
 
-# Load the sheet dynamically (first sheet)
-df = pd.read_excel(xls, sheet_name=xls.sheet_names[0], header=None)  # Read without assuming a header
+# first sheet selected autimatically
+df = pd.read_excel(xls, sheet_name=xls.sheet_names[0], header=None)  
 
-# Identify the header row dynamically
+# headers identified automatically
 header_row_index = df[df.apply(lambda row: row.astype(str).str.contains("Index", case=False, na=False).any(), axis=1)].index[0]
 
-# Extract proper column names
+# extract columns name
 df.columns = df.iloc[header_row_index]
 df = df[(header_row_index + 1):].reset_index(drop=True)  # Remove previous non-data rows
 
-# Ensure "Index" column is recognized
+# indext columns idntified
 df.rename(columns={df.columns[0]: "Index"}, inplace=True)
 
-# Convert all values to numeric, forcing errors to NaN (to remove bad data)
+#  all values converted to the numeric to avoid nan values
+
 df = df.apply(pd.to_numeric, errors='coerce')
 
-# Drop any fully empty columns
+# cancel out all empty columns
 df.dropna(axis=1, how='all', inplace=True)
 
 # Drop rows where Index is NaN (in case of missing headers)
 df.dropna(subset=["Index"], inplace=True)
 
-# Extract features (all columns except "Index")
+# Extract features all columns except index
 features = df.columns[1:]
 num_features = len(features)
 
 # Create a loop for individual feature plots (Y-axis) over all other features (X-axis)
+# creat loop for plotting features over each others
 for i, feature_y in enumerate(features):
     grid_size = int(np.ceil(np.sqrt(num_features)))  # Adjusted for better layout
     fig, axes = plt.subplots(grid_size, grid_size, figsize=(16, 16))  # Increased figure size
@@ -58,9 +60,9 @@ for i, feature_y in enumerate(features):
     plt.suptitle(f"{feature_y} Plotted Over Other Features", fontsize=16, y=0.98)  # Adjusted title position
     plt.show()
 
-# Final plot: All features over the Index
+# plot of all features over the indexes
 grid_size = int(np.ceil(np.sqrt(num_features)))
-fig, axes = plt.subplots(grid_size, grid_size, figsize=(16, 16))  # Adjusted figure size
+fig, axes = plt.subplots(grid_size, grid_size, figsize=(16, 16))
 axes = axes.flatten()
 
 for ax, feature in zip(axes, features):
@@ -75,6 +77,6 @@ for ax, feature in zip(axes, features):
 for i in range(len(features), len(axes)):
     fig.delaxes(axes[i])
 
-plt.subplots_adjust(top=0.92, bottom=0.08, left=0.08, right=0.95, hspace=0.4, wspace=0.4)  # Increased spacing
-plt.suptitle("Feature vs Index Plots", fontsize=16, y=0.98)  # Adjusted title position
+plt.subplots_adjust(top=0.92, bottom=0.08, left=0.08, right=0.95, hspace=0.4, wspace=0.4)  
+plt.suptitle("Feature vs Index Plots", fontsize=16, y=0.98)  #
 plt.show()
