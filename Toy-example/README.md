@@ -11,7 +11,7 @@ The strategies are:
 
 ## Codes:
 
-### meshed slope with cavity_2.py
+### meshed slope with cavity_V2.py
 * This code, as run once, demonstrates:
   create a slope with cavities. The cavities' dimensions and location can be adjusted by the user.
 * The output of this code is a shape in the .obj format.
@@ -24,12 +24,12 @@ Note: The .obj will be imported into the CloudCompare software so that the point
 Note: The .obj will be imported into the CloudCompare software so that the point clouds will be created as.las files.
   
 
-### Abnormalities_Features.py
+### Abnormalities_Features-V3.py
 * This code, as run once, demonstrates:
-  The different plots (features vs. features) are 16 * (4*4 grid) plots.
-* The input of this code is an .xlsx " maim/Data/Abnormalities_Features.xlsx" file that comes from the " TDA-feature extraction.py".
-* This code gets the input and generates 16 separate figures.
-
+  The different plots (features vs. features) are 16 * (4*4 grid) plots, and the features over indexes
+* The input of this code is an .xlsx " maim/Data/Abnormalities_Features-V3.xlsx" file that comes from the " TDA-feature extraction.py".
+* This code gets the input and generates 17 separate figures.   
+            
 
 ### TDA-feature extraction.py
 * This code, as run once, demonstrates:
@@ -50,5 +50,5 @@ Note: The .obj will be imported into the CloudCompare software so that the point
 
 ## plots:
 
-The plots folder includes the 16 figures from "Abnormalities_Features.py" and the accumulated feature value across the different number of points from " TDA-all features with graph-3.py".
+The plots folder includes the 16 figures from "Abnormalities_Features-V3.py" and the accumulated feature value across the different number of points from " TDA-all features with graph-V3.py".
  
