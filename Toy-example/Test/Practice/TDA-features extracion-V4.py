@@ -150,7 +150,7 @@ def process_multiple_las_files():
     # 1) Specify the directory containing your .las files.
     directory_path ="C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data"
     
-    # 2) List the filenames in the order you wish to process them.
+    # 2) List the filenames in the order you wish to process them. this command automatically calls several inputs
     file_list = [
         "Simple slop.las",
         "surface_with_smooth_circular_cavity_20.las",
