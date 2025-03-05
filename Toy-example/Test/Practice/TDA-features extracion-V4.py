@@ -142,13 +142,13 @@ class tda:
         return self.forward(pcd_list)
 
 
-###############################################
+
 # Main Code: Process multiple LAS files and accumulate median consensus features
-###############################################
+
 
 def process_multiple_las_files():
     # 1) Specify the directory containing your .las files.
-    directory_path = "C:/Users/GOLZARDM/Documents/GitHub/paper-TDA-embankment-monitoring/Toy-example/Test/Practice"
+    directory_path ="C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data"
     
     # 2) List the filenames in the order you wish to process them.
     file_list = [

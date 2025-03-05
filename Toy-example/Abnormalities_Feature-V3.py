@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import itertools
 
 # File loading
-file_path = "Abnormalities_Features - V3.xlsx"
+file_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/Abnormalities_Features - V3.xlsx"
 xls = pd.ExcelFile(file_path)
 
 # first sheet selected autimatically

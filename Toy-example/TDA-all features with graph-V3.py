@@ -139,7 +139,8 @@ class tda:
 import laspy
 
 #  file path to your LAS file setting up 
-file_path = "C:/Users/GOLZARDM/.spyder-py3/surface_with_smooth_circular_cavity_20.las"
+file_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_cavity_20.las"
+
 print("Opening LAS file:", file_path)
 with laspy.open(file_path) as f:
     las = f.read()

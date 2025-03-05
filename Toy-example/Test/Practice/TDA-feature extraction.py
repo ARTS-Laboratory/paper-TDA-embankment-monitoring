@@ -126,7 +126,7 @@ class tda:
 import laspy
 
 #  file path to your LAS file
-file_path = "C:/Users/GOLZARDM/.spyder-py3/Simple slop.las"
+file_path = "C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/Simple slop.las"
 print("opening LAS file:", file_path)
 with laspy.open(file_path) as f:
     las = f.read()

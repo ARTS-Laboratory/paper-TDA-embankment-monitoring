@@ -173,7 +173,7 @@ class tda:
 
 def process_multiple_las_files():
     # 1) Directory containing your .las files
-    directory_path = "C:/Users/GOLZARDM/Documents/GitHub/paper-TDA-embankment-monitoring/Toy-example/Test/Practice"
+    directory_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Toy-example/Data"
     
     # 2) List of filenames in the order you want them processed
     file_list = [
