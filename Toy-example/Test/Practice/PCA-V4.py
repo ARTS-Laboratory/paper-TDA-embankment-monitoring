@@ -4,19 +4,19 @@ import laspy
 import open3d as o3d
 from sklearn.decomposition import PCA
 
-# Load the LAS file
+# point cloud loading
 las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_cavity_40.las")
 
-# Extract X, Y, Z coordinates
-xyz = np.vstack((las.x, las.y, las.z)).T
+# change 3d Point cloud to the array
+xyz = np.vstack((las.x, las.y, las.z)).T # three columns created [ x; y; z]
 
-# Perform PCA
+# running of PCA
 pca = PCA(n_components=3)
 pc_values = pca.fit_transform(xyz)
 
 # Calculate statistics
-mean_pc3 = np.mean(pc_values[:, 2])
-std_pc3 = np.std(pc_values[:, 2])
+mean_pc3 = np.mean(pc_values[:, 2]) # the pc3 will is called
+std_pc3 = np.std(pc_values[:, 2])   # 
 
 print("Mean PC3 Value:", mean_pc3)
 
