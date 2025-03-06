@@ -31,7 +31,7 @@ Note: The .obj will be imported into the CloudCompare software so that the point
 * This code gets the input and generates 17 separate figures.   
             
 
-### TDA-feature extraction.py
+### TDA-feature extraction-V4.py
 * This code, as run once, demonstrates:
   The features ( as a vector) for each specific abnormality with a fixed number of points (m) @ K=10 iterations.
 * The input of this code is the.las file ( any arbitrary point cloud which is saved in the Data folder). The input can be called through the "file_path=" line in the code.
@@ -39,7 +39,7 @@ Note: The .obj will be imported into the CloudCompare software so that the point
 * This code calculates the median of the features at the end and saves it as a .CSV file.
   Note: This code needs to be developed to make a datafarme once as run.   
 
-### TDA-all features with graph-3.py
+### TDA-all features with graph-V3.py
 * This code, as run once, demonstrates:
   The overall trend of all features crosses the different number of points (e.g., m_values = [50, 200, 500, 1000, 1500, 2500, 3500, 4500]) @ k=10.
 * * The input of this code is the.las file ( any arbitrary point cloud which is saved in the Data folder). The input can be called through the "file_path=" line in the code.
