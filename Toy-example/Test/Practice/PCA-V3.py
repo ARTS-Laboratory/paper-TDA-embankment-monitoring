@@ -5,7 +5,7 @@ import open3d as o3d
 from sklearn.decomposition import PCA
 
 # Load the LAS file
-las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_hump_40.las")
+las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_cavity_40.las")
 
 # Extract X, Y, Z coordinates
 xyz = np.vstack((las.x, las.y, las.z)).T
@@ -40,8 +40,8 @@ hump_colors = plt.cm.coolwarm(normalized_pc3[pc_values[:, 2] > (mean_pc3 + 1.5 *
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
 
 # Top-down view (XY plane)
-ax[0].scatter(cavity_points[:, 0], cavity_points[:, 1], s=2, c=cavity_colors, label="Cavities")
-ax[0].scatter(hump_points[:, 0], hump_points[:, 1], s=2, c=hump_colors, label="Humps")
+ax[0].scatter(cavity_points[:, 0], cavity_points[:, 1], s=5, c=cavity_colors, label="Cavities")
+ax[0].scatter(hump_points[:, 0], hump_points[:, 1], s=5, c=hump_colors, label="Humps")
 ax[0].set_title("Top View ")
 ax[0].set_xlabel("X Coordinate")
 ax[0].set_ylabel("Y Coordinate")
@@ -49,8 +49,8 @@ ax[0].grid(True)
 ax[0].legend()
 
 # Side view (XZ plane)
-ax[1].scatter(cavity_points[:, 0], cavity_points[:, 2], s=2, c=cavity_colors, label="Cavities")
-ax[1].scatter(hump_points[:, 0], hump_points[:, 2], s=2, c=hump_colors, label="Humps")
+ax[1].scatter(cavity_points[:, 0], cavity_points[:, 2], s=5, c=cavity_colors, label="Cavities")
+ax[1].scatter(hump_points[:, 0], hump_points[:, 2], s=5, c=hump_colors, label="Humps")
 ax[1].set_title("Side View ")
 ax[1].set_xlabel("X direction")
 ax[1].set_ylabel("Z direction")
