@@ -5,7 +5,7 @@ import open3d as o3d
 from sklearn.decomposition import PCA
 
 # point cloud loading
-las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_cavity_40.las")
+las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_hump_40.las")
 
 # change 3d Point cloud to the array
 xyz = np.vstack((las.x, las.y, las.z)).T # three columns created [ x; y; z]
@@ -20,15 +20,15 @@ std_pc3 = np.std(pc_values[:, 2])   # the standard deviation of pc3 calculated
 
 print("Mean PC3 Value:", mean_pc3)
 
-# Remove Flat Surface
+# removing the flat surface
 flat_surface_mask = (pc_values[:, 2] >= (mean_pc3 - 1.5 * std_pc3)) & (pc_values[:, 2] <= (mean_pc3 + 1.5 * std_pc3))
 non_surface_points = xyz[~flat_surface_mask]  # Remove flat surface
 
-# Identify Cavities (Low PC3) and Humps (High PC3)
-cavity_points = xyz[pc_values[:, 2] < (mean_pc3 - 1.5 * std_pc3)]
-hump_points = xyz[pc_values[:, 2] > (mean_pc3 + 1.5 * std_pc3)]
+# abnormalities detection
+cavity_points = xyz[pc_values[:, 2] < (mean_pc3 - 1.5 * std_pc3)] # cavities extracted
+hump_points = xyz[pc_values[:, 2] > (mean_pc3 + 1.5 * std_pc3)]   # humps extracted
 
-# Normalize PC3 values for color mapping (0 to 1 scale)
+# normalized PC3 values for color mapping (0 to 1 scale)
 pc3_min, pc3_max = np.min(pc_values[:, 2]), np.max(pc_values[:, 2])
 normalized_pc3 = (pc_values[:, 2] - pc3_min) / (pc3_max - pc3_min)  # Scale between 0 and 1
 
@@ -36,7 +36,7 @@ normalized_pc3 = (pc_values[:, 2] - pc3_min) / (pc3_max - pc3_min)  # Scale betw
 cavity_colors = plt.cm.plasma(normalized_pc3[pc_values[:, 2] < (mean_pc3 - 1.5 * std_pc3)])
 hump_colors = plt.cm.plasma(normalized_pc3[pc_values[:, 2] > (mean_pc3 + 1.5 * std_pc3)])
 
-# ✅ 2D Scatter Plots (Top View & Side View) with stronger colors
+# 2D Scatter Plots (Top View & Side View) with stronger colors
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
 
 # Top-down view (XY plane)
@@ -59,7 +59,7 @@ ax[1].legend()
 
 plt.show()
 
-# ✅ 3D Plot in Matplotlib with Vibrant Colors
+#  3D Plot in Matplotlib with Vibrant Colors
 fig = plt.figure(figsize=(8, 6))
 ax = fig.add_subplot(111, projection='3d')
 
@@ -77,7 +77,7 @@ ax.legend()
 
 plt.show()
 
-# ✅ Interactive 3D Plot using Open3D with Color Mapping
+# Interactive 3D Plot using Open3D with Color Mapping
 o3d_pc = o3d.geometry.PointCloud()
 all_abnormal_points = np.vstack((cavity_points, hump_points))
 o3d_pc.points = o3d.utility.Vector3dVector(all_abnormal_points)
