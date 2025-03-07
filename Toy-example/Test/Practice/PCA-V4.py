@@ -14,9 +14,9 @@ xyz = np.vstack((las.x, las.y, las.z)).T # three columns created [ x; y; z]
 pca = PCA(n_components=3)
 pc_values = pca.fit_transform(xyz)
 
-# Calculate statistics
-mean_pc3 = np.mean(pc_values[:, 2]) # the pc3 will is called
-std_pc3 = np.std(pc_values[:, 2])   # 
+# the pc3 extraction and the standard deviation calculated as well
+mean_pc3 = np.mean(pc_values[:, 2]) # the pc3 is called
+std_pc3 = np.std(pc_values[:, 2])   # the standard deviation of pc3 calculated
 
 print("Mean PC3 Value:", mean_pc3)
 
