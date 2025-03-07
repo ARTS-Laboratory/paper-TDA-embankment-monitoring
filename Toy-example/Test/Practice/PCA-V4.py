@@ -5,7 +5,7 @@ import open3d as o3d
 from sklearn.decomposition import PCA
 
 # point cloud loading
-las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_hump_40.las")
+las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_hump_2.las")
 
 # change 3d Point cloud to the array
 xyz = np.vstack((las.x, las.y, las.z)).T # three columns created [ x; y; z]
