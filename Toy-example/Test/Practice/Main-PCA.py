@@ -36,7 +36,7 @@ normalized_pc3 = (pc_values[:, 2] - pc3_min) / (pc3_max - pc3_min)  # Scale betw
 cavity_colors = plt.cm.plasma(normalized_pc3[pc_values[:, 2] < (mean_pc3 - 1.5 * std_pc3)])
 hump_colors = plt.cm.plasma(normalized_pc3[pc_values[:, 2] > (mean_pc3 + 1.5 * std_pc3)])
 
-# ✅ 2D Scatter Plots (Top View & Side View) with stronger colors
+# 2D Scatter Plots (Top View & Side View) with stronger colors
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
 
 # Top-down view (XY plane)
@@ -57,10 +57,10 @@ ax[1].set_ylabel("Z direction")
 ax[1].grid(True)
 ax[1].legend()
 
-# ✅ Allow script to continue while showing plots
+# Allow script to continue while showing plots
 plt.show(block=False)
 
-# ✅ 3D Plot in Matplotlib with Vibrant Colors
+#  3D Plot in Matplotlib with Vibrant Colors
 fig = plt.figure(figsize=(8, 6))
 ax = fig.add_subplot(111, projection='3d')
 
@@ -76,10 +76,10 @@ ax.set_ylabel("Y")
 ax.set_zlabel("Z")
 ax.legend()
 
-# ✅ Allow script to continue while showing 3D plot
+# Allow script to continue while showing 3D plot
 plt.show(block=False)
 
-# ✅ Save the LAS file before launching Open3D visualization
+# Save the LAS file before launching Open3D visualization
 output_file = "abnormalities_only.las"
 header = laspy.LasHeader(point_format=las.header.point_format.id, version=las.header.version)
 filtered_las = laspy.LasData(header)
@@ -89,7 +89,7 @@ filtered_las.write(output_file)
 
 print(f"Filtered point cloud (cavities & humps) saved to {output_file}")
 
-# ✅ Interactive 3D Plot using Open3D with Color Mapping
+# Interactive 3D Plot using Open3D with Color Mapping
 o3d_pc = o3d.geometry.PointCloud()
 all_abnormal_points = np.vstack((cavity_points, hump_points))
 o3d_pc.points = o3d.utility.Vector3dVector(all_abnormal_points)
@@ -99,7 +99,7 @@ all_colors = np.vstack((cavity_colors[:, :3], hump_colors[:, :3])) ** 1.5  # Inc
 all_colors = np.clip(all_colors, 0, 1)  # Keep values within range (0-1)
 o3d_pc.colors = o3d.utility.Vector3dVector(all_colors)
 
-# ✅ Fix Open3D Viewport Issue & Allow Proper Visualization
+# Fix Open3D Viewport Issue & Allow Proper Visualization
 vis = o3d.visualization.Visualizer()
 vis.create_window(width=800, height=600)  # Ensure window size is set
 vis.add_geometry(o3d_pc)  # Add the point cloud

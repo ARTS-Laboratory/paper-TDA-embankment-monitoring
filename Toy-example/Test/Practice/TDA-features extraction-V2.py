@@ -43,7 +43,7 @@ class tda:
         
         # We store the persistence diagrams in self.diag after computing them
         self.diag = None
-
+####################
     def random_sampling_consensus(self, pcd, m=500, K=10):
         """
         Performs random sampling consensus TDA:
@@ -108,7 +108,7 @@ class tda:
                    comments='')
         
         return median_features  # Return just the median for this file
-
+################
     def forward(self, pcd_list):
         """
         Given a list of point clouds (or a single point cloud in a list),
@@ -178,7 +178,7 @@ def process_multiple_las_files():
     # 2) List of filenames in the order you want them processed
     file_list = [
         "Simple slop.las",
-        "surface_with_smooth_circular_cavity_20.las",
+        #"surface_with_smooth_circular_cavity_20.las",
         # Add more filenames as needed...
     ]
     

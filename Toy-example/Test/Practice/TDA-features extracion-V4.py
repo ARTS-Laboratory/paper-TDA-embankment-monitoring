@@ -39,7 +39,7 @@ class tda:
         self.NumOfPoint = NumberOfPoints()
         self.metrics = ["bottleneck", "wasserstein", "landscape", "persistence_image", "betti", "heat"]
         self.diag = None
-
+##################
     def random_sampling_consensus(self, pcd, m=50, K=10):
         """
         Implements a consensus procedure using random sampling.
