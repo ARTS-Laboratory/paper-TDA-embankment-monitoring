@@ -155,7 +155,7 @@ def process_multiple_las_files():
     
     # 2) List the filenames in the order you wish to process them. this command automatically calls several inputs
     file_list = [
-        "PCA-Hump-40.las",
+        "PCA-Hump-50.las",
         #"surface_with_smooth_circular_cavity_20.las",
         # Add more filenames as needed...
     ]
