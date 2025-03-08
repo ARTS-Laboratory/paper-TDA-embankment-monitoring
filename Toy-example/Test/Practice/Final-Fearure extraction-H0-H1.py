@@ -54,7 +54,7 @@ class tda:
         """
         
         # Dynamically adjust `m` and `K` based on dataset size
-        m = min(500, int(0.8 * pcd.shape[0]))  # Use 80% of available points, max 500
+        m = min(500, int(1 * pcd.shape[0]))  # Use 80% of available points, max 500
         K = max(3, min(10, int(0.05 * pcd.shape[0])))  # Adjust K dynamically
         
         print(f"Using m={m} (sample size) and K={K} (iterations) for TDA.")
@@ -155,7 +155,7 @@ def process_multiple_las_files():
     
     # 2) List the filenames in the order you wish to process them. this command automatically calls several inputs
     file_list = [
-        "Simple slop.las",
+        "PCA-Hump-40.las",
         #"surface_with_smooth_circular_cavity_20.las",
         # Add more filenames as needed...
     ]
@@ -184,7 +184,7 @@ def process_multiple_las_files():
         print("Point cloud shape:", point_cloud.shape)
         
         # 6) Random sampling TDA on this point cloud
-        m = min(500, int(0.8 * point_cloud.shape[0]))  # Use 80% of available points, max 500
+        m = min(500, int(1 * point_cloud.shape[0]))  # Use 80% of available points, max 500
         K = max(3, min(10, int(0.05 * point_cloud.shape[0])))  # Between 3 and 10 iterations
         
         print(f"Using m={m} (sample size) and K={K} (iterations) for file: {filename}")
