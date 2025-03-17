@@ -75,7 +75,7 @@ class SurfaceWithFeatures:
         ax1.set_ylim(0, self.params['width'])
         ax1.set_zlim(0, 200)  # Adjust elevation from 0 to 200
         ax1.set_box_aspect([1, 1, 1])  # Maintain equal aspect ratio
-        ax1.set_title("Tilted Side View")
+        ax1.set_title(r'\textbf{Tilted Side View}', fontsize=12, y=1.02)
         ax1.set_xlabel('Length')
         ax1.set_ylabel('Width')
         ax1.set_zlabel('Elevation')
@@ -87,7 +87,7 @@ class SurfaceWithFeatures:
         ax2.set_ylim(0, self.params['width'])
         ax2.set_zlim(0, 200)  # Adjust elevation from 0 to 200
         ax2.set_box_aspect([1, 1, 1])  # Maintain equal aspect ratio
-        ax2.set_title("Perpendicular Side View")
+        ax2.set_title(r'\textbf{Perpendicular Side View}', fontsize=12, y=1.02)
         ax2.set_xlabel('Length')
         ax2.set_ylabel('Width')
         ax2.set_zlabel('Elevation')
