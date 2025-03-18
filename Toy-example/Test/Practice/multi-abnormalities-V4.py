@@ -83,7 +83,7 @@ class SurfaceWithFeatures:
         ax1.set_ylim(0, self.params['width'])
         ax1.set_zlim(0, 200)  # Adjust elevation from 0 to 200
         ax1.set_box_aspect([1, 1, 1])  # Maintain equal aspect ratio
-        ax1.set_title(r'\textbf{Tilted Side View}', fontsize=12, y=1.02)
+        ax1.set_title(r'\Slope With Different Abnormalities}', fontsize=12, y=1.02)
         ax1.set_xlabel(r'\textbf{Length}')
         ax1.set_ylabel(r'\textbf{Width}')
         ax1.set_zlabel(r'\textbf{Elevation}')
@@ -113,11 +113,12 @@ if __name__ == "__main__":
         'slope_y': 0,
         'humps': [
             {'center': (50, 50), 'radius': 15, 'height': 10},
-            {'center': (150, 150), 'radius': 10, 'height': 10}
+            {'center': (150, 150), 'radius': 10, 'height': 10},
+            {'center': (150, 50), 'radius': 25, 'height': 20}
         ],
         'cavities': [
             {'center': (100, 100), 'radius': 20, 'depth': 10},
-            {'center': (30, 170), 'radius': 12, 'depth': 20}
+            {'center': (30, 170), 'radius': 20, 'depth': 20}
         ]
     }
 
