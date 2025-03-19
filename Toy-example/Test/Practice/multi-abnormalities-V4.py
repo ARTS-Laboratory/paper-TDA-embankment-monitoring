@@ -73,22 +73,29 @@ class SurfaceWithFeatures:
         mesh.export(filename)
         print(f"Mesh saved as {filename}")
 
-    def plot_interactive_3D(self):
-        """Generate an interactive 3D plot using Matplotlib."""
-        fig = plt.figure(figsize=(10, 8))
+    def plot_fullscreen_3D(self):
+        """Generate a 3D plot that takes up the full window."""
+        
+        # Set figure to full screen mode
+        fig = plt.figure(figsize=(14, 10))
         ax = fig.add_subplot(111, projection='3d')
 
         # Plot surface
         ax.plot_surface(self.X, self.Y, self.Z, cmap='viridis', edgecolor='k', linewidth=0.5)
 
         # Set labels and title with LaTeX formatting
-        ax.set_title(r'\textbf{Slope with Different Abnormalities}', fontsize=14, pad=2)
-        ax.set_xlabel(r'\textbf{Length}', fontsize=12)
-        ax.set_ylabel(r'\textbf{Width}', fontsize=12)
-        ax.set_zlabel(r'\textbf{Elevation}', fontsize=12)
+        ax.set_xlabel(r'\textbf{Length}', fontsize=14, labelpad=20)
+        ax.set_ylabel(r'\textbf{Width}', fontsize=14, labelpad=20)
+        ax.set_zlabel(r'\textbf{Elevation}', fontsize=14, labelpad=20)
 
-        # Enable interactive rotation
+        # Adjust layout for full window mode
+        plt.subplots_adjust(left=0, right=1, top=1, bottom=0)  # Maximize usage of space
+        manager = plt.get_current_fig_manager()
+        manager.window.state('zoomed')  # Set to full screen (Windows)
+        
+        # Set proper view angle
         ax.view_init(elev=30, azim=135)
+
         plt.show()
 
 if __name__ == "__main__":
@@ -112,4 +119,4 @@ if __name__ == "__main__":
     surface = SurfaceWithFeatures(params)
     surface.generate_surface()
     surface.save_mesh()
-    surface.plot_interactive_3D()
+    surface.plot_fullscreen_3D()
