@@ -1,16 +1,15 @@
-# Import required libraries
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import trimesh
 
 # Apply LaTeX Formatting for Matplotlib Plots
-plt.rcParams.update({'text.usetex': True})  # Enable LaTeX rendering
-plt.rcParams.update({'font.family': 'serif'})  # Use serif fonts
+plt.rcParams.update({'text.usetex': True})  
+plt.rcParams.update({'font.family': 'serif'})  
 plt.rcParams.update({'font.serif': ['Times New Roman', 'Times', 'DejaVu Serif']})  
-plt.rcParams.update({'font.size': 12})  # Standard font size
-plt.rcParams.update({'mathtext.rm': 'serif'})  # Use serif fonts for math text
-plt.rcParams.update({'mathtext.fontset': 'custom'})  # Use custom math fonts
+plt.rcParams.update({'font.size': 12})  
+plt.rcParams.update({'mathtext.rm': 'serif'})  
+plt.rcParams.update({'mathtext.fontset': 'custom'})  
 
 class SurfaceWithFeatures:
     def __init__(self, params=None):
@@ -59,24 +58,9 @@ class SurfaceWithFeatures:
             inside_cavity = distance <= cavity_radius
             self.Z[inside_cavity] -= np.clip(cavity_depth * (1 - (distance[inside_cavity] / cavity_radius)**2), 0, cavity_depth)
 
-    def save_mesh(self, filename="surface_with_features.obj"):
-        """Save the generated mesh to a file."""
-        vertices = np.column_stack((self.X.flatten(), self.Y.flatten(), self.Z.flatten()))
-        faces = []
-        resolution = self.params['resolution']
-        for i in range(resolution - 1):
-            for j in range(resolution - 1):
-                vertex = i * resolution + j
-                faces.append([vertex, vertex + 1, vertex + resolution])
-                faces.append([vertex + 1, vertex + resolution + 1, vertex + resolution])
-        mesh = trimesh.Trimesh(vertices=vertices, faces=faces)
-        mesh.export(filename)
-        print(f"Mesh saved as {filename}")
-
     def plot_large_3D(self):
         """Generate a 3D plot in a large, but resizable window."""
 
-        # Set figure size (Large but not fullscreen)
         fig = plt.figure(figsize=(14, 10))
         ax = fig.add_subplot(111, projection='3d')
 
@@ -92,18 +76,19 @@ class SurfaceWithFeatures:
         # Try to maximize window in a resizable mode
         manager = plt.get_current_fig_manager()
         try:
-            manager.window.state('zoomed')  # Windows (Tkinter Backend)
+            manager.window.state('zoomed')  
         except AttributeError:
             try:
-                manager.resize(*manager.window.maxsize())  # Alternative full-screen approach
+                manager.resize(*manager.window.maxsize())  
             except AttributeError:
                 print("Fullscreen mode is not supported in this environment.")
 
         # Set proper view angle
         ax.view_init(elev=30, azim=135)
 
-        # Show plot in a way that allows easy closing
-        plt.show(block=True)  # Ensure plot remains open until manually closed
+        # Non-blocking show (fixes kernel freezing)
+        plt.show(block=False)
+        plt.pause(0.1)  # Ensures the figure renders properly
 
 if __name__ == "__main__":
     params = {
@@ -125,5 +110,4 @@ if __name__ == "__main__":
 
     surface = SurfaceWithFeatures(params)
     surface.generate_surface()
-    surface.save_mesh()
     surface.plot_large_3D()
