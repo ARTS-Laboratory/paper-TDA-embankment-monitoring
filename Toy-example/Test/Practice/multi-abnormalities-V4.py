@@ -73,10 +73,10 @@ class SurfaceWithFeatures:
         mesh.export(filename)
         print(f"Mesh saved as {filename}")
 
-    def plot_fullscreen_3D(self):
-        """Generate a 3D plot that takes up the full window."""
-        
-        # Set figure to full screen mode
+    def plot_large_3D(self):
+        """Generate a 3D plot in a large, but resizable window."""
+
+        # Set figure size (Large but not fullscreen)
         fig = plt.figure(figsize=(14, 10))
         ax = fig.add_subplot(111, projection='3d')
 
@@ -84,19 +84,26 @@ class SurfaceWithFeatures:
         ax.plot_surface(self.X, self.Y, self.Z, cmap='viridis', edgecolor='k', linewidth=0.5)
 
         # Set labels and title with LaTeX formatting
-        ax.set_xlabel(r'\textbf{Length}', fontsize=14, labelpad=20)
-        ax.set_ylabel(r'\textbf{Width}', fontsize=14, labelpad=20)
-        ax.set_zlabel(r'\textbf{Elevation}', fontsize=14, labelpad=20)
+        ax.set_xlabel(r'\textbf{Length}', fontsize=14, labelpad=10)
+        ax.set_ylabel(r'\textbf{Width}', fontsize=14, labelpad=10)
+        ax.set_zlabel(r'\textbf{Elevation}', fontsize=14, labelpad=10)
+        ax.set_title(r'\textbf{Slope with Different Abnormalities}', fontsize=16, pad=8)
 
-        # Adjust layout for full window mode
-        plt.subplots_adjust(left=0, right=1, top=1, bottom=0)  # Maximize usage of space
+        # Try to maximize window in a resizable mode
         manager = plt.get_current_fig_manager()
-        manager.window.state('zoomed')  # Set to full screen (Windows)
-        
+        try:
+            manager.window.state('zoomed')  # Windows (Tkinter Backend)
+        except AttributeError:
+            try:
+                manager.resize(*manager.window.maxsize())  # Alternative full-screen approach
+            except AttributeError:
+                print("Fullscreen mode is not supported in this environment.")
+
         # Set proper view angle
         ax.view_init(elev=30, azim=135)
 
-        plt.show()
+        # Show plot in a way that allows easy closing
+        plt.show(block=True)  # Ensure plot remains open until manually closed
 
 if __name__ == "__main__":
     params = {
@@ -119,4 +126,4 @@ if __name__ == "__main__":
     surface = SurfaceWithFeatures(params)
     surface.generate_surface()
     surface.save_mesh()
-    surface.plot_fullscreen_3D()
+    surface.plot_large_3D()
