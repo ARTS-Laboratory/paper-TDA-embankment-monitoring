@@ -61,17 +61,17 @@ class SurfaceWithFeatures:
     def plot_large_3D(self):
         """Generate a 3D plot in a large, but resizable window."""
 
-        fig = plt.figure(figsize=(14, 10))
+        fig = plt.figure(figsize=(18, 10))
         ax = fig.add_subplot(111, projection='3d')
 
         # Plot surface
         ax.plot_surface(self.X, self.Y, self.Z, cmap='viridis', edgecolor='k', linewidth=0.5)
 
         # Set labels and title with LaTeX formatting
-        ax.set_xlabel(r'\textbf{Length}', fontsize=14, labelpad=10)
-        ax.set_ylabel(r'\textbf{Width}', fontsize=14, labelpad=10)
-        ax.set_zlabel(r'\textbf{Elevation}', fontsize=14, labelpad=10)
-        ax.set_title(r'\textbf{Slope with Different Abnormalities}', fontsize=16, pad=8)
+        ax.set_xlabel( fontsize=24, labelpad=20)
+        ax.set_ylabel( fontsize=24, labelpad=20)
+        ax.set_zlabel( fontsize=24, labelpad=20)
+        #ax.set_title(r'\textbf{Slope with Different Abnormalities}', fontsize=16, pad=8)
 
         # Try to maximize window in a resizable mode
         manager = plt.get_current_fig_manager()
