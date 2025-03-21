@@ -46,7 +46,7 @@ num_features = len(features)
 # Create a loop for individual feature plots (Y-axis) over all other features (X-axis)
 for i, feature_y in enumerate(features):
     grid_size = int(np.ceil(np.sqrt(num_features)))  # Adjusted for better layout
-    fig, axes = plt.subplots(grid_size, grid_size, figsize=(18, 18), dpi=100)  # Increased figure size
+    fig, axes = plt.subplots(grid_size, grid_size, figsize=(18, 18), dpi=120)  # Increased figure size
     axes = axes.flatten()
 
     # Plot feature_y against all other features (X-axis)
@@ -69,7 +69,7 @@ for i, feature_y in enumerate(features):
 
 # Plot all features over the index column
 grid_size = int(np.ceil(np.sqrt(num_features)))
-fig, axes = plt.subplots(grid_size, grid_size, figsize=(18, 18), dpi=100)
+fig, axes = plt.subplots(grid_size, grid_size, figsize=(18, 18), dpi=120)
 axes = axes.flatten()
 
 for ax, feature in zip(axes, features):
