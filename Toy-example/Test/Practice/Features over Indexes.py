@@ -24,12 +24,13 @@ df = df[1:]  # Remove the header row from data
 df.columns = [re.sub(r'\s+', ' ', str(x).strip()) for x in df.columns]
 
 #  all column names to understand the issue
-print("\nAll Column Names from the DataFrame:")
+print("\nAll Column Names from the DataFrame:") # this command is important because I copy correct names from 
+                                                 #concole and past in columns_to_plot =[name of features] 
 print(df.columns.tolist())
 
 #  index column to numeric
 df['Index'] = pd.to_numeric(df['Index'], errors='coerce')
-df.dropna(subset=['Index'], inplace=True)  # Remove rows where 'Index' could not be converted
+df.dropna(subset=['Index'], inplace=True)  # remove rows where 'Index' could not be converted
 
 # Automatically detect all numerical columns except 'Index'
 available_columns = [col for col in df.columns if col != 'Index']
