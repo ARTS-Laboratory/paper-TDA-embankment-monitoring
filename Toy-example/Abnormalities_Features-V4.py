@@ -8,7 +8,7 @@ import itertools
 plt.rcParams.update({'text.usetex': True})  # Enable LaTeX rendering
 plt.rcParams.update({'font.family': 'serif'})  # Use serif font
 plt.rcParams.update({'font.serif': ['Times New Roman', 'Times', 'DejaVu Serif']})  
-plt.rcParams.update({'font.size': 16})  # Standard font size
+plt.rcParams.update({'font.size': 6})  # Standard font size
 plt.rcParams.update({'mathtext.rm': 'serif'})  # Use serif fonts for math text
 plt.rcParams.update({'mathtext.fontset': 'custom'})  # Use custom math fonts
 
@@ -46,7 +46,7 @@ num_features = len(features)
 # Create a loop for individual feature plots (Y-axis) over all other features (X-axis)
 for i, feature_y in enumerate(features):
     grid_size = int(np.ceil(np.sqrt(num_features)))  # Adjusted for better layout
-    fig, axes = plt.subplots(grid_size, grid_size, figsize=(18, 18), dpi=120)  # Increased figure size
+    fig, axes = plt.subplots(grid_size, grid_size, figsize=(6, 6), dpi=150)  # Increased figure size
     axes = axes.flatten()
 
     # Plot feature_y against all other features (X-axis)
@@ -54,36 +54,36 @@ for i, feature_y in enumerate(features):
         ax = axes[j]
         ax.scatter(df[feature_x], df[feature_y], 
                    edgecolors=plt.cm.viridis((df[feature_x] - df[feature_x].min()) / (df[feature_x].max() - df[feature_x].min())), 
-                   facecolors='none', linewidth=1.8, marker='o', alpha=0.8, s=100)
-        ax.set_xlabel(r'\textbf{' + feature_x + '}', fontsize=16)  #  LaTeX format
-        ax.set_ylabel(r'\textbf{' + feature_y + '}', fontsize=16)  #  LaTeX format
-        ax.tick_params(axis='both', which='major', labelsize=16)
+                   facecolors='none', linewidth=1.2, marker='o', alpha=0.8, s=30)
+        ax.set_xlabel(r'\textbf{' + feature_x + '}', fontsize=7)  #  LaTeX format
+        ax.set_ylabel(r'\textbf{' + feature_y + '}', fontsize=7)  #  LaTeX format
+        ax.tick_params(axis='both', which='major', labelsize=7)
 
     # Hide unused subplots
     for k in range(j + 1, len(axes)):
         fig.delaxes(axes[k])
 
     plt.subplots_adjust(top=0.92, bottom=0.08, left=0.08, right=0.95, hspace=0.4, wspace=0.4)
-    plt.suptitle(r'\textbf{' + feature_y + ' Plotted Over Other Features}', fontsize=16, y=0.98)  #  LaTeX format
+    plt.suptitle(r'\textbf{' + feature_y + ' Plotted Over Other Features}', fontsize=14, y=0.98)  #  LaTeX format
     plt.show()
 
 # Plot all features over the index column
 grid_size = int(np.ceil(np.sqrt(num_features)))
-fig, axes = plt.subplots(grid_size, grid_size, figsize=(18, 18), dpi=120)
+fig, axes = plt.subplots(grid_size, grid_size, figsize=(6, 6), dpi=150)
 axes = axes.flatten()
 
 for ax, feature in zip(axes, features):
     ax.scatter(df["Index"], df[feature], 
                edgecolors=plt.cm.viridis((df["Index"] - df["Index"].min()) / (df["Index"].max() - df["Index"].min())), 
-               facecolors='none', linewidth=1.8, marker='o', alpha=0.8, s=100)
-    ax.set_xlabel(r'\textbf{Index}', fontsize=16)  #  LaTeX format
-    ax.set_ylabel(r'\textbf{' + feature + '}', fontsize=16)  # LaTeX format
-    ax.tick_params(axis='both', which='major', labelsize=16)
+               facecolors='none', linewidth=1.2, marker='o', alpha=0.8, s=30)
+    ax.set_xlabel(r'\textbf{Index}', fontsize=7)  #  LaTeX format
+    ax.set_ylabel(r'\textbf{' + feature + '}', fontsize=7)  # LaTeX format
+    ax.tick_params(axis='both', which='major', labelsize=7)
 
 # Hide unused subplots
 for i in range(len(features), len(axes)):
     fig.delaxes(axes[i])
 
 plt.subplots_adjust(top=0.92, bottom=0.08, left=0.08, right=0.95, hspace=0.4, wspace=0.4)  
-plt.suptitle(r'\textbf{Feature vs Index Plots}', fontsize=16, y=0.98)  #  LaTeX format
+plt.suptitle(r'\textbf{Feature vs Index Plots}', fontsize=14, y=0.98)  #  LaTeX format
 plt.show()
