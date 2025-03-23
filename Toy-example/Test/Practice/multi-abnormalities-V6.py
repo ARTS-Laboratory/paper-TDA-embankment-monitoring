@@ -15,19 +15,19 @@ plt.rcParams.update({'mathtext.fontset': 'custom'})
 
 class SurfaceWithFeatures:
     def __init__(self, params=None):
-        # Default parameters
+        # default parameters
         self.default_params = {
-            'length': 200,  # Length of the surface
-            'width': 200,   # Width of the surface
-            'resolution': 300,  # Grid resolution
+            'length': 200,  # surface length
+            'width': 200,   # surface width
+            'resolution': 300,  # resolution for grid
             'base_height': 0,  # Base height of the surface
-            'slope_x': 2,  # Slope in the X direction
-            'slope_y': 2,  # Slope in the Y direction
-            'humps': [],  # List of humps [{'center': (x, y), 'radius': r, 'height': h}]
-            'cavities': []  # List of cavities [{'center': (x, y), 'radius': r, 'depth': d}]
+            'slope_x': 2,  # slope  x direction
+            'slope_y': 2,  # slope  y direction
+            'humps': [],  # list of humps, should be in this style [{'center': (x, y), 'radius': r, 'height': h}]
+            'cavities': []  # list of cavities, should be in this style [{'center': (x, y), 'radius': r, 'depth': d}]
         }
 
-        # Update parameters with provided values
+        #  parameters updating
         self.params = self.default_params.copy()
         if params:
             self.params.update(params)
@@ -38,12 +38,12 @@ class SurfaceWithFeatures:
         y = np.linspace(0, self.params['width'], self.params['resolution'])
         self.X, self.Y = np.meshgrid(x, y)
 
-        # Initialize base surface with slope
+        # base surface with slope initialization
         self.Z = (self.params['base_height'] +
                   self.params['slope_x'] * self.X +
                   self.params['slope_y'] * self.Y)
 
-        # Apply humps
+        #  humps
         for hump in self.params['humps']:
             hump_x, hump_y = hump['center']
             hump_radius = hump['radius']
@@ -52,7 +52,7 @@ class SurfaceWithFeatures:
             inside_hump = distance <= hump_radius
             self.Z[inside_hump] += np.clip(hump_height * (1 - (distance[inside_hump] / hump_radius)**2), 0, hump_height)
 
-        # Apply cavities
+        #  cavities
         for cavity in self.params['cavities']:
             cavity_x, cavity_y = cavity['center']
             cavity_radius = cavity['radius']
@@ -80,7 +80,7 @@ class SurfaceWithFeatures:
         fig = plt.figure(figsize=(3.5, 4), dpi=300)
         ax1 = fig.add_subplot(111, projection='3d')
 
-        # Plot surface with solid green color
+        # plot
         ax1.plot_surface(self.X, self.Y, self.Z, color='lightgreen', edgecolor='red', linewidth=0.5)
 
         ax1.view_init(elev=20, azim=120)
