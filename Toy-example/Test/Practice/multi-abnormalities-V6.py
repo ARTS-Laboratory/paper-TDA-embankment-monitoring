@@ -1,6 +1,17 @@
+# Import required libraries
 import numpy as np
 import trimesh
 import matplotlib.pyplot as plt
+
+
+# Apply LaTeX Formatting for Matplotlib Plots
+plt.rcParams.update({'text.usetex': True})  
+plt.rcParams.update({'font.family': 'serif'})  
+plt.rcParams.update({'font.serif': ['Times New Roman', 'Times', 'DejaVu Serif']})  
+plt.rcParams.update({'font.size': 4})  
+plt.rcParams.update({'mathtext.rm': 'serif'})  
+plt.rcParams.update({'mathtext.fontset': 'custom'}) 
+
 
 class SurfaceWithFeatures:
     def __init__(self, params=None):
@@ -64,34 +75,23 @@ class SurfaceWithFeatures:
         mesh.export(filename)
         print(f"Mesh saved as {filename}")
 
-    def plot_two_views(self):
-        """Plot two views of the surface: tilted side view and perpendicular side view."""
-        fig = plt.figure(figsize=(14, 6))
-
+    def plot_tilted_view(self):
+        """Plot tilted side view of the surface."""
+        fig = plt.figure(figsize=(3.5, 4), dpi=300)
         ax1 = fig.add_subplot(111, projection='3d')
-        ax1.plot_surface(self.X, self.Y, self.Z, cmap='Greens', edgecolor='red', linewidth=0.5)
+
+        # Plot surface with solid green color
+        ax1.plot_surface(self.X, self.Y, self.Z, color='lightgreen', edgecolor='red', linewidth=0.5)
+
         ax1.view_init(elev=20, azim=120)
         ax1.set_xlim(0, self.params['length'])
         ax1.set_ylim(0, self.params['width'])
-        ax1.set_zlim(0, 200)  # Adjust elevation from 0 to 200
+        ax1.set_zlim(0, 100)  # Adjust elevation from 0 to 100
         ax1.set_box_aspect([1, 1, 1])  # Maintain equal aspect ratio
-        ax1.set_title(r'\textbf{Tilted Side View}', fontsize=12, y=1.02)
-        ax1.set_xlabel('Length')
-        ax1.set_ylabel('Width')
-        ax1.set_zlabel('Elevation')
-
-        #ax2 = fig.add_subplot(122, projection='3d')
-        #ax2.plot_surface(self.X, self.Y, self.Z, cmap='Greens', edgecolor='red', linewidth=0.5)
-        #ax2.view_init(elev=0, azim=90)
-        #ax2.set_xlim(0, self.params['length'])
-        #ax2.set_ylim(0, self.params['width'])
-        #ax2.set_zlim(0, 200)  # Adjust elevation from 0 to 200
-        #ax2.set_box_aspect([1, 1, 1])  # Maintain equal aspect ratio
-        #ax2.set_title(r'\textbf{Perpendicular Side View}', fontsize=12, y=1.02)
-        #ax2.set_xlabel('Length')
-        #ax2.set_ylabel('Width')
-        #ax2.set_zlabel('Elevation')
-
+        #ax1.set_title(r'\textbf{Tilted Side View}', fontsize=12, y=1.02)
+        #ax1.set_xlabel('Length')
+        #ax1.set_ylabel('Width')
+        #ax1.set_zlabel('Elevation')
         plt.tight_layout()
         plt.show()
 
@@ -103,16 +103,16 @@ if __name__ == "__main__":
         'slope_x': 0.5,
         'slope_y': 0,
         'humps': [
-            {'center': (50, 50), 'radius': 15, 'height': 10},
-            {'center': (150, 150), 'radius': 10, 'height': 10}
+            #{'center': (100, 100), 'radius': 50, 'height': 20},
+            #{'center': (150, 150), 'radius': 10, 'height': 20}
         ],
         'cavities': [
-            {'center': (100, 100), 'radius': 20, 'depth': 10},
-            {'center': (30, 170), 'radius': 12, 'depth': 20}
+            {'center': (100, 100), 'radius':50, 'depth': 20},
+            #{'center': (30, 170), 'radius': 12, 'depth': 20}
         ]
     }
 
     surface = SurfaceWithFeatures(params)
     surface.generate_surface()
     surface.save_mesh()
-    surface.plot_two_views()
+    surface.plot_tilted_view()
