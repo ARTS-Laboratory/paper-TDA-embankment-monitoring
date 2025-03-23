@@ -78,7 +78,7 @@ class SurfaceWithFeatures:
 
     def plot_large_3D(self):
         """Generate a 3D plot with specified size and DPI."""
-        fig = plt.figure(figsize=(3.25, 4), dpi=300)  # Set size to 6.5x6.5 inches and 300 DPI
+        fig = plt.figure(figsize=(3.5, 4), dpi=300)  # Set size to 6.5x6.5 inches and 300 DPI
         ax = fig.add_subplot(111, projection='3d')
 
         # Plot surface
@@ -108,13 +108,12 @@ if __name__ == "__main__":
         'slope_x': 0.5,
         'slope_y': 0,
         'humps': [
-            {'center': (50, 50), 'radius': 15, 'height': 10},
-            {'center': (150, 150), 'radius': 10, 'height': 10},
-            {'center': (150, 50), 'radius': 30, 'height': 20}
+            {'center': (100, 100), 'radius': 20, 'height': 20},
+            #{'center': (150, 150), 'radius': 10, 'height': 20}
         ],
         'cavities': [
-            {'center': (100, 100), 'radius': 20, 'depth': 10},
-            {'center': (30, 170), 'radius': 12, 'depth': 20}
+            #{'center': (100, 100), 'radius': 20, 'depth': 20},
+            #{'center': (30, 170), 'radius': 12, 'depth': 20}
         ]
     }
 
