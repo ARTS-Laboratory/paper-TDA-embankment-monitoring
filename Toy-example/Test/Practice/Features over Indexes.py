@@ -60,7 +60,7 @@ else:
   
     plt.xlabel(r"Index", fontsize=10)
     plt.ylabel(r"Feature Value", fontsize=10)
-    plt.legend(fontsize=6)
+    plt.legend(fontsize=8)
     plt.grid(True)
 
     # Show the plot
