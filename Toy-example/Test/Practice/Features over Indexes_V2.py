@@ -43,8 +43,8 @@ print("\nAvailable columns to plot:", available_columns)
 
 # Specify the desired columns in the code
 columns_to_plot = ['persistence entropy (H0)', 'persistence entropy (H1)', 'landscape (H0)', 'landscape (H1)',
-                   'persistence Image (H0)', 'persistence Image (H1)', 
-                   'betti (H0)', 'betti (H1)', 'heat (H0)', 'heat (H1)']
+                   'persistence image (H0)', 'persistence image (H1)', 
+                   'Betti (H0)', 'Betti (H1)', 'heat (H0)', 'heat (H1)']
 
 # Validate selected columns after cleaning
 columns_to_plot = [col for col in columns_to_plot if col in available_columns]
