@@ -146,64 +146,70 @@ class tda:
 
 
 
-# Main Code: Process multiple LAS files and accumulate median consensus features
+########## the main Code starts from this section
+# 1- Process multiple LAS files and accumulate median consensus of features for each imported poit cloud (index)
 
 
 def process_multiple_las_files():
-    # 1) Specify the directory containing your .las files.
+    #  here is the directory containing the .las files.
     directory_path ="C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data"
     
-    # 2) List the filenames in the order you wish to process them. this command automatically calls several inputs
+  #  here you can list the filenames that you wish to process them. (this command automatically calls several inputs_
     file_list = [
         "abnormalities_only.las",
         #"surface_with_smooth_circular_cavity_20.las",
-        # Add more filenames as needed...
+        # .....  add any files
     ]
 
-    # 3) Create an instance of the tda class.
+    #  creating an instance of the tda class.
     my_tda = tda(homo_dim=1, fts='all')
     
-    # 4) Create a list to accumulate median features for each file.
+    #  creating a list to accumulate median features for each file.
     accumulated_data = []
     
-    # 5) Loop over the files in the specified order.
+    #  loop over the files in the specified order.
     for filename in file_list:
         file_path = os.path.join(directory_path, filename)
         print(f"\nNow processing file: {file_path}")
         
-        # Open and read the .las file.
+        # opening and reading the .las file.
         with laspy.open(file_path) as f:
             las = f.read()
         print("LAS file read successfully.")
         
-        # Extract x, y, z coordinates.
+        # make point clouds as array x, y, z.
         x = las.x
         y = las.y
         z = las.z
         point_cloud = np.vstack((x, y, z)).T
         print("Point cloud shape:", point_cloud.shape)
         
-        # 6) Random sampling TDA on this point cloud
-        m = min(500, int(1 * point_cloud.shape[0]))  # Use 80% of available points, max 500
-        K = max(3, min(10, int(0.05 * point_cloud.shape[0])))  # Between 3 and 10 iterations
+        ########### this part is important
+        # note: if we use the PCA we have less dataset which is not logical to sample from them so, the m conditionally selected
+        # note: if we use the PCA we have ledd dataset which is not logical to run them 10 times so, the k conditionally selected
+        
+        # random sampling TDA on this point cloud. 
+        
+        m = min(500, int(1 * point_cloud.shape[0]))  # here using 100% of available points, max 500
+        K = max(3, min(10, int(0.05 * point_cloud.shape[0])))  # between 3 and 10 iterations
         
         print(f"Using m={m} (sample size) and K={K} (iterations) for file: {filename}")
         median_features = my_tda.random_sampling_consensus(point_cloud, m=m, K=K)
         
-        # 7) Compute the persistence diagram on the full point cloud (for saving homology diagrams)
+        #  computing the persistence diagram on the full point cloud (for saving homology diagrams)
         _ = my_tda([point_cloud])
         out_prefix = os.path.splitext(filename)[0]  # e.g., "Simple slop"
         my_tda.save_homology_dimensions(diagram_index=0, filename_prefix=out_prefix)
         
-        # 8) Accumulate the median features for this file (filename + median features)
+        #  Accumulate the median features for this file (filename + median features)
         row_data = np.concatenate(([filename], median_features))
         accumulated_data.append(row_data)
     
-    # 9) Write out the accumulated median features for all files into one CSV.
+    #  saving the accumulated median features for all files into one CSV
     if accumulated_data:
-        # Determine the number of numeric features (minus one for the filename).
+        # determining the number of numeric features.
         numeric_length = len(accumulated_data[0]) - 1
-        # Define a header with the full, descriptive feature names.
+        # defining  header with the feature names
         header_list = [
             "filename",
             "Persistence Entropy (H0)",
@@ -234,7 +240,7 @@ def process_multiple_las_files():
     else:
         print("No data accumulated. Possibly no files were processed.")
 
-# Run the main function if desired.
+# runing the main function of TDA
 if __name__ == "__main__":
     process_multiple_las_files()
 
