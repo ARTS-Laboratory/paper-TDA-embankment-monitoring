@@ -66,11 +66,11 @@ ax = fig.add_subplot(111, projection='3d')
 
 # scatter plot 
 sc = ax.scatter(cavity_points[:, 0], cavity_points[:, 1], cavity_points[:, 2], 
-                c=cavity_colors, s=8, label="Cavities")  # Increased point size
+                c=cavity_colors, s=8, label="cavities")  # Increased point size
 sc2 = ax.scatter(hump_points[:, 0], hump_points[:, 1], hump_points[:, 2], 
-                 c=hump_colors, s=8, label="Humps")  # Increased point size
+                 c=hump_colors, s=8, label="humps")  # Increased point size
 
-ax.set_title("3D Plot with Strong Colors")
+ax.set_title("3D Plot")
 ax.set_xlabel("X")
 ax.set_ylabel("Y")
 ax.set_zlabel("Z")
