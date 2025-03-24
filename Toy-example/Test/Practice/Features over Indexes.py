@@ -37,9 +37,9 @@ available_columns = [col for col in df.columns if col != 'Index']
 print("\nAvailable columns to plot:", available_columns)
 
 # specifiyng the desired columns in the code
-columns_to_plot = ['PE (H0)', 'PE (H1)', 'Landscape (H0)', 'Landscape (H1)',
-                   'Persistence Image (H0)', 'Persistence Image (H1)', 
-                   'Betti (H0)', 'Betti (H1)', 'Heat (H0)', 'Heat (H1)']
+columns_to_plot = ['persistence entropy (H0)', 'persistence entropy (H1)', 'landscape (H0)', 'landscape (H1)',
+                   'persistence image (H0)', 'persistence image (H1)', 
+                   'Betti (H0)', 'Betti (H1)', 'heat (H0)', 'heat (H1)']
 
 # validate selected columns after cleaning
 columns_to_plot = [col for col in columns_to_plot if col in available_columns]
