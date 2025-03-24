@@ -4,42 +4,42 @@ import laspy
 import open3d as o3d
 from sklearn.decomposition import PCA
 
-# Load the LAS file
+# load the LAS file
 las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/Complex abnormalities.las")
 
-# Extract X, Y, Z coordinates
+
 xyz = np.vstack((las.x, las.y, las.z)).T
 
-# Perform PCA
+# PCA performing in this step
 pca = PCA(n_components=3)
 pc_values = pca.fit_transform(xyz)
 
-# Calculate statistics
+# mean & standard deveiation calculated
 mean_pc3 = np.mean(pc_values[:, 2])
 std_pc3 = np.std(pc_values[:, 2])
 
 print("Mean PC3 Value:", mean_pc3)
 
-# Remove Flat Surface
+# flat surface removing
 flat_surface_mask = (pc_values[:, 2] >= (mean_pc3 - 1.5 * std_pc3)) & (pc_values[:, 2] <= (mean_pc3 + 1.5 * std_pc3))
-non_surface_points = xyz[~flat_surface_mask]  # Remove flat surface
+non_surface_points = xyz[~flat_surface_mask]  
 
-# Identify Cavities (Low PC3) and Humps (High PC3)
+#  cavities (Low PC3) and humps (High PC3) identified
 cavity_points = xyz[pc_values[:, 2] < (mean_pc3 - 1.5 * std_pc3)]
 hump_points = xyz[pc_values[:, 2] > (mean_pc3 + 1.5 * std_pc3)]
 
-# Normalize PC3 values for color mapping (0 to 1 scale)
+#  PC3 values for color mapping normalized between 0 and 1
 pc3_min, pc3_max = np.min(pc_values[:, 2]), np.max(pc_values[:, 2])
-normalized_pc3 = (pc_values[:, 2] - pc3_min) / (pc3_max - pc3_min)  # Scale between 0 and 1
+normalized_pc3 = (pc_values[:, 2] - pc3_min) / (pc3_max - pc3_min)  
 
-# Choose a more vibrant colormap (plasma, turbo, jet)
+#### vibrant colormap like plasma, turbo, jet
 cavity_colors = plt.cm.plasma(normalized_pc3[pc_values[:, 2] < (mean_pc3 - 1.5 * std_pc3)])
 hump_colors = plt.cm.plasma(normalized_pc3[pc_values[:, 2] > (mean_pc3 + 1.5 * std_pc3)])
 
-# 2D Scatter Plots (Top View & Side View) with stronger colors
+# 2D Scatter plots (Top View & Side View) with stronger colors
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
 
-# Top-down view (XY plane)
+### Top-down view (in X-Y plane
 ax[0].scatter(cavity_points[:, 0], cavity_points[:, 1], s=8, c=cavity_colors, label="Cavities")  # Increased point size
 ax[0].scatter(hump_points[:, 0], hump_points[:, 1], s=8, c=hump_colors, label="Humps")  # Increased point size
 ax[0].set_title("Top View ")
@@ -48,7 +48,7 @@ ax[0].set_ylabel("Y Coordinate")
 ax[0].grid(True)
 ax[0].legend()
 
-# Side view (XZ plane)
+# Side view in X-Z plane
 ax[1].scatter(cavity_points[:, 0], cavity_points[:, 2], s=8, c=cavity_colors, label="Cavities")  # Increased point size
 ax[1].scatter(hump_points[:, 0], hump_points[:, 2], s=8, c=hump_colors, label="Humps")  # Increased point size
 ax[1].set_title("Side View ")
@@ -57,14 +57,14 @@ ax[1].set_ylabel("Z direction")
 ax[1].grid(True)
 ax[1].legend()
 
-# Allow script to continue while showing plots
+#### allowing the script to continue while showing plots foe avoiding clash
 plt.show(block=False)
 
-#  3D Plot in Matplotlib with Vibrant Colors
+#  3D Plot using the Matplotlib with Vibrant Colors
 fig = plt.figure(figsize=(8, 6))
 ax = fig.add_subplot(111, projection='3d')
 
-# Scatter plot for 3D visualization
+# scatter plot 
 sc = ax.scatter(cavity_points[:, 0], cavity_points[:, 1], cavity_points[:, 2], 
                 c=cavity_colors, s=8, label="Cavities")  # Increased point size
 sc2 = ax.scatter(hump_points[:, 0], hump_points[:, 1], hump_points[:, 2], 
@@ -76,10 +76,11 @@ ax.set_ylabel("Y")
 ax.set_zlabel("Z")
 ax.legend()
 
-# Allow script to continue while showing 3D plot
+#### allowing the script to continue while showing plots for avoiding clash
 plt.show(block=False)
 
-# Save the LAS file before launching Open3D visualization
+###### in this section the the filtered data in this case cavities and humps or all together saved and prepared for TDA  
+# save the LAS file before launching Open3D visualization.
 output_file = "abnormalities_only.las"
 header = laspy.LasHeader(point_format=las.header.point_format.id, version=las.header.version)
 filtered_las = laspy.LasData(header)
@@ -89,19 +90,19 @@ filtered_las.write(output_file)
 
 print(f"Filtered point cloud (cavities & humps) saved to {output_file}")
 
-# Interactive 3D Plot using Open3D with Color Mapping
+# interactive 3D plot using Open3D with color mapping
 o3d_pc = o3d.geometry.PointCloud()
 all_abnormal_points = np.vstack((cavity_points, hump_points))
 o3d_pc.points = o3d.utility.Vector3dVector(all_abnormal_points)
 
-# Convert colors to Open3D format (Nx3) and enhance contrast
-all_colors = np.vstack((cavity_colors[:, :3], hump_colors[:, :3])) ** 1.5  # Increase brightness
-all_colors = np.clip(all_colors, 0, 1)  # Keep values within range (0-1)
+# convert colors to open3D format (Nx3) and enhance contrast
+all_colors = np.vstack((cavity_colors[:, :3], hump_colors[:, :3])) ** 1.5  # brightness adjustment
+all_colors = np.clip(all_colors, 0, 1)  #  values within range (0-1)
 o3d_pc.colors = o3d.utility.Vector3dVector(all_colors)
 
-# Fix Open3D Viewport Issue & Allow Proper Visualization
+# fix open3D any viewport issue & allow proper visualization
 vis = o3d.visualization.Visualizer()
-vis.create_window(width=800, height=600)  # Ensure window size is set
-vis.add_geometry(o3d_pc)  # Add the point cloud
-vis.run()  # Run the visualization
-vis.destroy_window()  # Close the window properly after visualization
+vis.create_window(width=800, height=600)  # ensure window size is set
+vis.add_geometry(o3d_pc)  # add the point cloud
+vis.run()  # run the visualization
+vis.destroy_window()  # close the window properly after visualization
