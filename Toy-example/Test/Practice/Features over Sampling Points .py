@@ -100,14 +100,14 @@ for i in range(normalized_features.shape[1]):
 
 # feature labeling
 feature_labels = [
-    "Entropy H0", "Entropy H1",
-    "NumPoints H0", "NumPoints H1",
-    "Bottleneck H0", "Bottleneck H1",
-    "Wasserstein H0", "Wasserstein H1",
-    "Landscape H0", "Landscape H1",
-    "PersistenceImg H0", "PersistenceImg H1",
-    "Betti H0", "Betti H1",
-    "Heat H0", "Heat H1"
+    "persistence entropy (H0)", "persistence entropy (H1)",
+    "number of points (H0)", "number of points(H1)",
+    "bottleneck  (H0)", "bottleneck  (H1)",
+    "wasserstein  (H0)", "wasserstein  (H1)",
+    "landscape (H0)", "landscape (H1)",
+    "persistence image (H0)", "persistence image (H1)",
+    "Betti (H0)", "Betti (H1)",
+    "heat (H0)", "heat (H1)"
 ]
 
 # this section important: here we can select the desired features on concole by adding features nymber

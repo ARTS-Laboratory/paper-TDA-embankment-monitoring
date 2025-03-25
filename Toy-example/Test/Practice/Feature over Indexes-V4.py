@@ -70,6 +70,9 @@ else:
     # Increase number of X-axis ticks and set xlim
     plt.xlim(-52, 52)  # Set x-axis limit to -52 and 52
     plt.xticks(np.arange(-50, 55, 10), fontsize=8)  # Set ticks at interval of 10
+    
+    # Set the font size of y-axis ticks
+    plt.yticks(fontsize=8)
 
     # Adjust grid and alpha for lighter grid lines
     plt.grid(True, color='gray', linestyle='-', linewidth=0.5, alpha=0.3)
