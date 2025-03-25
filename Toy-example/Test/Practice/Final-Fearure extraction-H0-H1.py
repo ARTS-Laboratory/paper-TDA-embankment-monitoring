@@ -156,7 +156,7 @@ def process_multiple_las_files():
     
   #  here you can list the filenames that you wish to process them. (this command automatically calls several inputs_
     file_list = [
-        "abnormalities_only.las",
+        "Simple slop.las",
         #"surface_with_smooth_circular_cavity_20.las",
         # .....  add any files
     ]
