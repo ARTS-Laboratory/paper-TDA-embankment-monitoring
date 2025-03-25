@@ -32,10 +32,10 @@ print(df.columns.tolist())
 df['Index'] = pd.to_numeric(df['Index'], errors='coerce')
 df.dropna(subset=['Index'], inplace=True)
 
-# Z-Score Normalization for each column (standardization)
+# Normalize the Y-axis for each column (scaling between 0 and 1)
 for col in df.columns[1:]:
     df[col] = pd.to_numeric(df[col], errors='coerce')
-    df[col] = (df[col] - df[col].mean()) / df[col].std()
+    df[col] = (df[col] - df[col].min()) / (df[col].max() - df[col].min())
 
 # Automatically detect all numerical columns except 'Index'
 available_columns = [col for col in df.columns if col != 'Index']
@@ -56,16 +56,16 @@ else:
     # Adjust figure size and DPI
     plt.figure(figsize=(6.5, 4), dpi=300)
 
-    # Plot each feature vs index with lines connecting markers
+    # Plot each feature vs index with connecting lines and markers
     for col in columns_to_plot:
         try:
-            plt.plot(df['Index'], df[col], label=col, marker='o', linestyle='-', linewidth=0.7, markersize=4)
+            plt.plot(df['Index'], df[col], label=col, marker='o', linestyle='-', linewidth=0.8, markersize=4)
         except Exception as e:
             print(f"Skipping column '{col}' due to error: {e}")
 
     # X-axis label and Y-axis label
-    plt.xlabel(r"damage index", fontsize=10)
-    plt.ylabel(r"z-score normalized feature value", fontsize=10)
+    plt.xlabel(r"damage index", fontsize=10)  # X-axis label changed
+    plt.ylabel(r"normalized feature value", fontsize=10)  # Y-axis normalized
 
     # Increase number of X-axis ticks and set xlim
     plt.xlim(-52, 52)  # Set x-axis limit to -52 and 52
