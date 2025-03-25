@@ -70,7 +70,7 @@ class tda:
 # Main body of the program
 
 # Load the LAS file
-file_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_cavity_20.las"
+file_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/PCA-Cavity-50.las"
 print("Opening LAS file:", file_path)
 with laspy.open(file_path) as f:
     las = f.read()
@@ -85,7 +85,8 @@ print("Original point cloud shape:", point_cloud.shape)
 my_tda = tda(homo_dim=1, fts='all')
 
 # Sampling sizes and number of iterations
-m_values = [50, 200, 500, 1000, 1500, 2500, 3500, 4500]
+percentages = [0.01, 0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0]  # Define percentages of total points
+m_values = [min(5000, int(p * point_cloud.shape[0])) for p in percentages]  # Limit to max 5000 points
 K = 10  # number of iterations
 median_features_list = []
 

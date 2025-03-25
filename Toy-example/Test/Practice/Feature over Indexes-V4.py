@@ -78,7 +78,7 @@ else:
     plt.grid(True, color='gray', linestyle='-', linewidth=0.5, alpha=0.3)
 
     # Adjusted legend: smaller font size, transparent background, reduced spacing
-    plt.legend(fontsize=6.8, loc='lower left', framealpha=0.8, markerscale=0.6, handlelength=0.8)
+    plt.legend(fontsize=6.8, loc='lower left', framealpha=1, markerscale=0.6, handlelength=0.8)
 
     # Remove extra whitespace
     plt.tight_layout(pad=0)
