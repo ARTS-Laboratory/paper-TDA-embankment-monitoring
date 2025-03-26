@@ -5,7 +5,7 @@ import open3d as o3d
 from sklearn.decomposition import PCA
 
 # load the LAS file
-las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/Complex abnormalities.las")
+las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_cavity_50.las")
 
 
 xyz = np.vstack((las.x, las.y, las.z)).T
