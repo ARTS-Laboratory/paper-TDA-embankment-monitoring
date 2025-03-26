@@ -14,7 +14,7 @@ plt.rcParams.update({'mathtext.rm': 'serif'})
 plt.rcParams.update({'mathtext.fontset': 'custom'})  
 
 # Load the LAS file
-las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/Complex abnormalities.las")
+las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_cavity_50.las")
 xyz = np.vstack((las.x, las.y, las.z)).T
 
 # PCA performing in this step
@@ -76,7 +76,7 @@ fig = plt.figure(figsize=(6.5, 4), dpi=300)  # High DPI and shorter plot size
 ax = fig.add_subplot(111, projection='3d')
 sc = ax.scatter(cavity_points[:, 0], cavity_points[:, 1], cavity_points[:, 2], c=cavity_colors, s=8, label="Cavities")
 sc2 = ax.scatter(hump_points[:, 0], hump_points[:, 1], hump_points[:, 2], c=hump_colors, s=8, label="Humps")
-ax.set_title("3D Scatter Plot", fontsize=10)
+#ax.set_title("3D Scatter Plot", fontsize=10)
 ax.set_xlabel("X", fontsize=8)
 ax.set_ylabel("Y", fontsize=8)
 ax.set_zlabel("Z", fontsize=8)
@@ -86,7 +86,8 @@ ax.tick_params(axis='x', labelsize=8)
 ax.tick_params(axis='y', labelsize=8)
 ax.tick_params(axis='z', labelsize=8)
 #plt.tight_layout(pad=0.1)
-ax.set_box_aspect([1, 1, 1])  # Equal scaling for all three dimensions
+#ax.set_box_aspect([1, 1, 1])  # Equal scaling for all three dimensions
+plt.savefig("3d_plot.png", bbox_inches='tight', pad_inches=0)
 plt.show()
 
 # Save the filtered data for TDA
