@@ -153,7 +153,7 @@ plt.yticks(fontsize=8)
 plt.grid(True, color='gray', linestyle='-', linewidth=0.5, alpha=0.3)
 
 # Adjusted legend: smaller font size, transparent background, reduced spacing
-plt.legend(loc='lower right', bbox_to_anchor=(1.0, 0.0), framealpha=1, fontsize=8, frameon=True)
+plt.legend(loc='lower right', bbox_to_anchor=(1.0, 0.0), framealpha=1, fontsize=7.5, frameon=True)
 
 # Remove extra whitespace
 plt.tight_layout(pad=0)
