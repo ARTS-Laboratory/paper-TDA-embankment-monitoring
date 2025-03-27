@@ -74,21 +74,35 @@ plt.show()
 # Plot 3: 3D Scatter Plot
 fig = plt.figure(figsize=(6.5, 4), dpi=300)  # High DPI and shorter plot size
 ax = fig.add_subplot(111, projection='3d')
-sc = ax.scatter(cavity_points[:, 0], cavity_points[:, 1], cavity_points[:, 2], c=cavity_colors, s=8, label="Cavities")
-sc2 = ax.scatter(hump_points[:, 0], hump_points[:, 1], hump_points[:, 2], c=hump_colors, s=8, label="Humps")
-#ax.set_title("3D Scatter Plot", fontsize=10)
+
+# Combine cavity and hump points for a single plot with viridis coloring
+points = np.vstack((cavity_points, hump_points))
+colors = np.concatenate((cavity_colors[:, 0], hump_colors[:, 0]))
+
+# Scatter plot with viridis colormap
+sc = ax.scatter(points[:, 0], points[:, 1], points[:, 2], c=colors, cmap='viridis', s=8, label="Vertices")
 ax.set_xlabel("X", fontsize=8)
 ax.set_ylabel("Y", fontsize=8)
 ax.set_zlabel("Z", fontsize=8)
+
+# Colorbar for viridis color representation
+cb = plt.colorbar(sc, ax=ax, pad=0.1)
+cb.set_label("Feature Value", fontsize=8)
+
 # Adjusted legend: smaller font size, transparent background, reduced spacing
-#plt.legend(loc='lower right', bbox_to_anchor=(1.0, 0.0), framealpha=1, fontsize=8, frameon=True)
+ax.legend(fontsize=8)
 ax.tick_params(axis='x', labelsize=8)
 ax.tick_params(axis='y', labelsize=8)
 ax.tick_params(axis='z', labelsize=8)
-#plt.tight_layout(pad=0.1)
-#ax.set_box_aspect([1, 1, 1])  # Equal scaling for all three dimensions
+
+# Save and display the plot
 plt.savefig("3d_plot.png", bbox_inches='tight', pad_inches=0)
 plt.show()
+
+# Adjusted axis limits to center the object
+ax.set_xlim(np.min(xyz[:, 0]), np.max(xyz[:, 0]))
+ax.set_ylim(np.min(xyz[:, 1]), np.max(xyz[:, 1]))
+ax.set_zlim(np.min(xyz[:, 2]), np.max(xyz[:, 2]))
 
 # Save the filtered data for TDA
 output_file = "abnormalities_only.las"
