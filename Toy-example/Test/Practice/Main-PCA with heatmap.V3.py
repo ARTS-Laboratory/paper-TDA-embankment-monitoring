@@ -80,7 +80,7 @@ points = np.vstack((cavity_points, hump_points))
 colors = np.concatenate((cavity_colors[:, 0], hump_colors[:, 0]))
 
 # Scatter plot with viridis colormap
-sc = ax.scatter(points[:, 0], points[:, 1], points[:, 2], c=colors, cmap='viridis', s=8, label="Vertices")
+sc = ax.scatter(points[:, 0], points[:, 1], points[:, 2], c=colors, cmap='viridis', s=8)
 ax.set_xlabel("X", fontsize=8)
 ax.set_ylabel("Y", fontsize=8)
 ax.set_zlabel("Z", fontsize=8)
@@ -90,7 +90,7 @@ cb = plt.colorbar(sc, ax=ax, pad=0.1)
 cb.set_label("Feature Value", fontsize=8)
 
 # Adjusted legend: smaller font size, transparent background, reduced spacing
-ax.legend(fontsize=8)
+#ax.legend(fontsize=8)
 ax.tick_params(axis='x', labelsize=8)
 ax.tick_params(axis='y', labelsize=8)
 ax.tick_params(axis='z', labelsize=8)
