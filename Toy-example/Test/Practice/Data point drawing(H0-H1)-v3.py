@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.colors import BoundaryNorm, ListedColormap
+import matplotlib.cm as cm
 
 # Apply LaTeX Formatting for Matplotlib
 plt.rcParams.update({'text.usetex': True})  
@@ -21,12 +23,14 @@ data_points = {
     "2023-09": (9.37618875152874, 6.9889303875193)
 }
 
-# Toggle to connect markers with lines
-connect_markers = False  # Set to False to disable connection lines
-
-# Extract data for plotting
+# Convert dates to numeric values for colormap normalization
 dates = list(data_points.keys())
 x, y = zip(*data_points.values())
+
+# Create a numeric mapping for dates in sorted order
+sorted_dates = sorted(data_points.keys())
+date_order = {date: i for i, date in enumerate(sorted_dates)}
+date_values = [date_order[date] for date in dates]
 
 # ------------------------
 # 2) Plotting the data
@@ -34,30 +38,28 @@ x, y = zip(*data_points.values())
 fig, ax = plt.subplots(figsize=(6.5, 4), dpi=300)  
 plt.tight_layout(pad=2.3)
 
-# Normalize colors for the Viridis colormap
-norm = plt.Normalize(min(y), max(y))
-colors = plt.cm.viridis(norm(y))
+# Discrete colormap and boundary normalization
+cmap = cm.get_cmap('viridis', len(sorted_dates))
+norm = BoundaryNorm(range(len(sorted_dates) + 1), cmap.N)
 
-# Scatter plot with Viridis colormap with higher zorder
-sc = ax.scatter(x, y, c=y, cmap='viridis', s=100, zorder=3)
-
-# Optional: Connect markers with lines
-if connect_markers:
-    ax.plot(x, y, linestyle='-', color='gray', linewidth=1, zorder=2)
+# Scatter plot with a discrete colormap
+sc = ax.scatter(x, y, c=date_values, cmap=cmap, norm=norm, s=100, zorder=3)
 
 # Adjusted spacing for dates to the left of markers
 for i, date in enumerate(dates):
     x_offset = 0.06 * (x[-1] - x[0])  # Increased left offset to avoid overlap
     y_offset = 0.0  # No vertical offset
 
-    # Place the date label to the left of the marker with right alignment
+    # Place the date label to the right of the marker with right alignment
     ax.text(x[i] + x_offset, y[i], f'{date}', fontsize=8, ha='right', va='center', zorder=5)
 
 # ------------------------
-# 3) Add a colorbar
+# 3) Add a discrete colorbar with correct date mapping
 # ------------------------
-cbar = plt.colorbar(sc, ax=ax, ticks=np.linspace(min(y), max(y), len(y)))
-cbar.ax.set_ylabel('Data Value', fontsize=10)
+cbar = plt.colorbar(sc, ax=ax, ticks=range(len(sorted_dates)))
+cbar.set_ticks([i + 0.5 for i in range(len(sorted_dates))])  # Center ticks
+cbar.set_ticklabels(sorted_dates)
+cbar.ax.set_ylabel('Date', fontsize=10)
 
 # Grid and formatting
 ax.grid(True, linestyle='-', linewidth=0.5, alpha=0.7, zorder=1)
@@ -83,5 +85,3 @@ ax.set_ylabel(r'H1-entropy', fontsize=10)
 
 # Display the plot
 plt.show()
-
-

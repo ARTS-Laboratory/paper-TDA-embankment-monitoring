@@ -119,26 +119,26 @@ cov_matrix_before_pca = np.cov(xyz.T)
 cov_matrix_after_pca = np.cov(pc_values.T)
 
 # Covariance Matrix Before PCA
-fig = plt.figure(figsize=(6.5, 4), dpi=300)  # High DPI and shorter plot size
+fig = plt.figure(figsize=(3.5, 4), dpi=300)  # High DPI and shorter plot size
 sns.heatmap(cov_matrix_before_pca, annot=True, fmt=".2f", cmap="coolwarm",
             xticklabels=[r'\textbf{X}', r'\textbf{Y}', r'\textbf{Z}'],
             yticklabels=[r'\textbf{X}', r'\textbf{Y}', r'\textbf{Z}'])
 
-plt.title(r'\textbf{Covariance Matrix Before PCA}')
+#plt.title(r'\textbf{Covariance Matrix Before PCA}')
 plt.xlabel(r'\textbf{Dimensions}')
 plt.ylabel(r'\textbf{Dimensions}')
-plt.tight_layout(pad=0)
+plt.tight_layout(pad=0.2)
 plt.show()
 
 # Covariance Matrix After PCA
-fig = plt.figure(figsize=(6.5, 4), dpi=300)  # High DPI and shorter plot size
+fig = plt.figure(figsize=(3.5, 4), dpi=300)  # High DPI and shorter plot size
 sns.heatmap(cov_matrix_after_pca, annot=True, fmt=".2f", cmap="coolwarm",
             xticklabels=[r'\textbf{PC1}', r'\textbf{PC2}', r'\textbf{PC3}'],
             yticklabels=[r'\textbf{PC1}', r'\textbf{PC2}', r'\textbf{PC3}'])
 
-plt.title(r'\textbf{Covariance Matrix After PCA}')
+#plt.title(r'\textbf{Covariance Matrix After PCA}')
 plt.xlabel(r'\textbf{Principal Components}')
 plt.ylabel(r'\textbf{Principal Components}')
-plt.tight_layout(pad=0)
+plt.tight_layout(pad=0.2)
 plt.show()
 
