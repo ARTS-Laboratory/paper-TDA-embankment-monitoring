@@ -121,24 +121,29 @@ cov_matrix_after_pca = np.cov(pc_values.T)
 # Covariance Matrix Before PCA
 fig = plt.figure(figsize=(3.5, 4), dpi=300)  # High DPI and shorter plot size
 sns.heatmap(cov_matrix_before_pca, annot=True, fmt=".2f", cmap="coolwarm",
+            annot_kws={"fontfamily": "serif", "fontsize": 8},  # Ensure serif font
             xticklabels=[r'\textbf{X}', r'\textbf{Y}', r'\textbf{Z}'],
             yticklabels=[r'\textbf{X}', r'\textbf{Y}', r'\textbf{Z}'])
-
-#plt.title(r'\textbf{Covariance Matrix Before PCA}')
-plt.xlabel(r'\textbf{Dimensions}')
-plt.ylabel(r'\textbf{Dimensions}')
+plt.xlabel(r'\textbf{dimensions}', fontsize=10)  # X-axis label with font size 10
+plt.ylabel(r'\textbf{dimensions}', fontsize=10)  # Y-axis label with font size 10
+# Set the font size of x and y axis ticks
+plt.xticks(fontsize=8)
+plt.yticks(fontsize=8)
 plt.tight_layout(pad=0.2)
 plt.show()
 
 # Covariance Matrix After PCA
 fig = plt.figure(figsize=(3.5, 4), dpi=300)  # High DPI and shorter plot size
 sns.heatmap(cov_matrix_after_pca, annot=True, fmt=".2f", cmap="coolwarm",
+            annot_kws={"fontfamily": "serif", "fontsize": 8},  # Ensure serif font
             xticklabels=[r'\textbf{PC1}', r'\textbf{PC2}', r'\textbf{PC3}'],
             yticklabels=[r'\textbf{PC1}', r'\textbf{PC2}', r'\textbf{PC3}'])
-
-#plt.title(r'\textbf{Covariance Matrix After PCA}')
-plt.xlabel(r'\textbf{Principal Components}')
-plt.ylabel(r'\textbf{Principal Components}')
+plt.xlabel(r'\textbf{principal components}', fontsize=10)  # X-axis label with font size 10
+plt.ylabel(r'\textbf{principal components}', fontsize=10)  # Y-axis label with font size 10
+# Set the font size of x and y axis ticks
+plt.xticks(fontsize=8)
+plt.yticks(fontsize=8)
 plt.tight_layout(pad=0.2)
 plt.show()
+
 
