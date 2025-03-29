@@ -15,12 +15,12 @@ plt.rcParams.update({'mathtext.fontset': 'custom'})
 # 1) Define your data
 # ------------------------
 data_points = {
-    "2021-06": (9.4841538660995, 6.80312288450234),
-    "2021-08": (9.26470523171643, 6.63823350095655),
-    "2022-02": (9.45140598614037, 6.9928931490743),
-    "2022-10": (9.41268216239237, 7.03893509287341),
-    "2023-08": (9.44807061046547, 6.86687641191988),
-    "2023-09": (9.37618875152874, 6.9889303875193)
+    "2021-06": (4.17823208847893, 3.40024643467844),
+    "2021-08": (15.5241577072973, 2.62756461081497),
+    "2022-02": (5.37247679114185, 1.19919571170783),
+    "2022-10": (22.9935928223699, 1.47650576747287),
+    "2023-08": (4.63386894290955, 1.63556146074716),
+    "2023-09": (28.4173955407928, 1.31216463232126)
 }
 
 # Convert dates to numeric values for colormap normalization
@@ -36,7 +36,7 @@ date_values = [date_order[date] for date in dates]
 # 2) Plotting the data
 # ------------------------
 fig, ax = plt.subplots(figsize=(5, 4), dpi=300)  
-plt.tight_layout(pad=2.3)
+plt.tight_layout(pad=1.7)
 
 # Continuous color normalization and colormap
 norm = Normalize(vmin=0, vmax=1)
@@ -49,7 +49,7 @@ sc = ax.scatter(x, y, c=date_values, cmap='viridis', norm=norm, s=50, zorder=3)
 for i, date in enumerate(dates):
     x_offset = 0.08 * (x[-1] - x[0])  # Increased left offset to avoid overlap
     y_offset = 0.0  # No vertical offset
-    ax.text(x[i] + x_offset, y[i], f'{date}', fontsize=10, ha='right', va='center', zorder=5)
+    ax.text(x[i] + x_offset, y[i], f'{date}', fontsize=10, ha='left', va='center', zorder=5)
 
 # ------------------------
 # 3) Add a continuous colorbar with correct date mapping
@@ -79,8 +79,8 @@ ax.set_xticks(x_ticks)
 ax.set_yticks(y_ticks)
 
 # x-y labels
-ax.set_xlabel(r'H0-entropy', fontsize=12)
-ax.set_ylabel(r'H1-entropy', fontsize=12)
+ax.set_xlabel(r'H0-landscape', fontsize=12)
+ax.set_ylabel(r'H1-landscape', fontsize=12)
 
 # Display the plot
 plt.show()

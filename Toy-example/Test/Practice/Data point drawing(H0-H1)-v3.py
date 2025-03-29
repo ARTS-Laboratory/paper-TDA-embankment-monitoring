@@ -35,8 +35,8 @@ date_values = [date_order[date] for date in dates]
 # ------------------------
 # 2) Plotting the data
 # ------------------------
-fig, ax = plt.subplots(figsize=(6.5, 4), dpi=300)  
-plt.tight_layout(pad=2.3)
+fig, ax = plt.subplots(figsize=(3.5, 4), dpi=300)  
+plt.tight_layout(pad=0.5)
 
 # Discrete colormap and boundary normalization
 cmap = cm.get_cmap('viridis', len(sorted_dates))

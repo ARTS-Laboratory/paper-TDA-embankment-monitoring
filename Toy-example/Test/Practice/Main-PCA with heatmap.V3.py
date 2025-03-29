@@ -123,10 +123,10 @@ cov_matrix_after_pca = np.cov(pc_values.T)
 fig = plt.figure(figsize=(3.5, 4), dpi=300)  # High DPI and shorter plot size
 sns.heatmap(cov_matrix_before_pca, annot=True, fmt=".2f", cmap="coolwarm",
             annot_kws={"fontfamily": "serif", "fontsize": 8},  # Ensure serif font
-            xticklabels=[r'\textbf{X}', r'\textbf{Y}', r'\textbf{Z}'],
-            yticklabels=[r'\textbf{X}', r'\textbf{Y}', r'\textbf{Z}'])
-plt.xlabel(r'\textbf{dimensions}', fontsize=10)  # X-axis label with font size 10
-plt.ylabel(r'\textbf{dimensions}', fontsize=10)  # Y-axis label with font size 10
+            xticklabels=[r'X', r'Y', r'Z'],
+            yticklabels=[r'X', r'Y', r'Z'])
+plt.xlabel(r'dimensions', fontsize=10)  # X-axis label with font size 10
+plt.ylabel(r'dimensions', fontsize=10)  # Y-axis label with font size 10
 # Set the font size of x and y axis ticks
 plt.xticks(fontsize=8)
 plt.yticks(fontsize=8)
@@ -137,10 +137,10 @@ plt.show()
 fig = plt.figure(figsize=(3.5, 4), dpi=300)  # High DPI and shorter plot size
 sns.heatmap(cov_matrix_after_pca, annot=True, fmt=".2f", cmap="coolwarm",
             annot_kws={"fontfamily": "serif", "fontsize": 8},  # Ensure serif font
-            xticklabels=[r'\textbf{PC1}', r'\textbf{PC2}', r'\textbf{PC3}'],
-            yticklabels=[r'\textbf{PC1}', r'\textbf{PC2}', r'\textbf{PC3}'])
-plt.xlabel(r'\textbf{principal components}', fontsize=10)  # X-axis label with font size 10
-plt.ylabel(r'\textbf{principal components}', fontsize=10)  # Y-axis label with font size 10
+            xticklabels=[r'PC1', r'PC2', r'PC3'],
+            yticklabels=[r'PC1', r'PC2', r'PC3'])
+plt.xlabel(r'principal components', fontsize=10)  # X-axis label with font size 10
+plt.ylabel(r'principal components', fontsize=10)  # Y-axis label with font size 10
 # Set the font size of x and y axis ticks
 plt.xticks(fontsize=8)
 plt.yticks(fontsize=8)
