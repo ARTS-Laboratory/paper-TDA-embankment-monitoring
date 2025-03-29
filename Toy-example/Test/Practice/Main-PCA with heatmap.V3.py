@@ -14,7 +14,8 @@ plt.rcParams.update({'mathtext.rm': 'serif'})
 plt.rcParams.update({'mathtext.fontset': 'custom'})  
 
 # Load the LAS file
-las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_cavity_50.las")
+las = laspy.read("C:/Users/hp zbook g5/Documents/GitHub/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_cavity_50.las")
+#las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_cavity_50.las")
 xyz = np.vstack((las.x, las.y, las.z)).T
 
 # PCA performing in this step
@@ -119,7 +120,7 @@ cov_matrix_before_pca = np.cov(xyz.T)
 cov_matrix_after_pca = np.cov(pc_values.T)
 
 # Covariance Matrix Before PCA
-fig = plt.figure(figsize=(6.5, 4), dpi=300)  # High DPI and shorter plot size
+fig = plt.figure(figsize=(3.5, 4), dpi=300)  # High DPI and shorter plot size
 sns.heatmap(cov_matrix_before_pca, annot=True, fmt=".2f", cmap="coolwarm",
             annot_kws={"fontfamily": "serif", "fontsize": 8},  # Ensure serif font
             xticklabels=[r'\textbf{X}', r'\textbf{Y}', r'\textbf{Z}'],
@@ -133,7 +134,7 @@ plt.tight_layout(pad=0.2)
 plt.show()
 
 # Covariance Matrix After PCA
-fig = plt.figure(figsize=(6.5, 4), dpi=300)  # High DPI and shorter plot size
+fig = plt.figure(figsize=(3.5, 4), dpi=300)  # High DPI and shorter plot size
 sns.heatmap(cov_matrix_after_pca, annot=True, fmt=".2f", cmap="coolwarm",
             annot_kws={"fontfamily": "serif", "fontsize": 8},  # Ensure serif font
             xticklabels=[r'\textbf{PC1}', r'\textbf{PC2}', r'\textbf{PC3}'],
