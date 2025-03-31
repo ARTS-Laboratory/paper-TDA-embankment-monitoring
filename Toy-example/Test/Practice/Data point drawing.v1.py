@@ -17,12 +17,12 @@ plt.rcParams.update({'mathtext.fontset': 'custom'})
 # 1) Define your data
 # ------------------------
 data_points = {
-    "2021-06": (4.17823208847893, 3.40024643467844),
-    "2021-08": (15.5241577072973, 2.62756461081497),
-    "2022-02": (5.37247679114185, 1.19919571170783),
-    "2022-10": (22.9935928223699, 1.47650576747287),
-    "2023-08": (4.63386894290955, 1.63556146074716),
-    "2023-09": (28.4173955407928, 1.31216463232126)
+        "2021-06": (717.7258522, 39.51872959),
+        "2021-08": (691.9116192, 30.26878415),
+        "2022-02": (617.8294022, 33.7760513),
+        "2022-10": (696.5263774, 37.98204133),
+        "2023-08": (629.7828845, 31.85151925),
+        "2023-09": (678.2654267, 33.35350521)
 }
 
 # Convert date strings to datetime objects
@@ -73,7 +73,7 @@ ax.tick_params(axis='both', labelsize=9)
 # Axis limits with margin
 x_min, x_max = min(x), max(x)
 y_min, y_max = min(y), max(y)
-x_margin = (x_max - x_min) * 0.1
+x_margin = (x_max - x_min) * 0.3
 y_margin = (y_max - y_min) * 0.2
 ax.set_xlim(x_min - x_margin, x_max + x_margin)
 ax.set_ylim(y_min - y_margin, y_max + y_margin)

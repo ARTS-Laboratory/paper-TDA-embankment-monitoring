@@ -17,12 +17,12 @@ plt.rcParams.update({'mathtext.fontset': 'custom'})
 # 1) Define your data
 # ------------------------
 data_points = {
-    "2021-06": (9.4841538660995, 6.80312288450234),
-    "2021-08": (9.26470523171643, 6.63823350095655),
-    "2022-02": (9.45140598614037, 6.9928931490743),
-    "2022-10": (9.41268216239237, 7.03893509287341),
-    "2023-08": (9.44807061046547, 6.86687641191988),
-    "2023-09": (9.37618875152874, 6.9889303875193)
+        "2021-06": (1346.64323338739, 126.184424383657),
+        "2021-08": (1508.54606107209, 119.70973882858),
+        "2022-02": (1693.29977332732, 170.474344017366),
+        "2022-10": (1792.4018331633, 167.434212672425),
+        "2023-08": (1521.36355843286, 150.426334756123),
+        "2023-09": (1654.90638742224, 158.660833851576)
 }
 
 # Convert date strings to datetime objects
@@ -70,19 +70,30 @@ cbar.ax.tick_params(labelsize=9)               # Font size for tick labels
 ax.grid(True, linestyle='-', linewidth=0.5, alpha=0.7, zorder=1)
 ax.tick_params(axis='both', labelsize=9)
 
-# Manually set axis limits
-ax.set_xlim(9.25, 9.55)       # X-axis domain
-ax.set_ylim(6.6, 7.1)    # Y-axis domain
+# Axis limits with margin
+x_min, x_max = min(x), max(x)
+y_min, y_max = min(y), max(y)
+x_margin = (x_max - x_min) * 0.3
+y_margin = (y_max - y_min) * 0.2
+ax.set_xlim(x_min - x_margin, x_max + x_margin)
+ax.set_ylim(y_min - y_margin, y_max + y_margin)
 
-# Custom ticks based on manual limits
-ax.set_xticks(np.linspace(9.25, 9.55, num=6))
-ax.set_yticks(np.linspace(6.6, 7.1, num=6))
+
+# Manually set axis limits
+#ax.set_xlim(0, 35)      # X-axis domain
+#ax.set_ylim(1.0, 4.0)    # Y-axis domain
+
+# Custom ticks
+x_ticks = np.linspace(x_min - x_margin, x_max + x_margin, num=5)
+y_ticks = np.linspace(y_min - y_margin, y_max + y_margin, num=5)
+ax.set_xticks(x_ticks)
+ax.set_yticks(y_ticks)
 ax.xaxis.set_major_formatter(FormatStrFormatter('%.1f'))
 ax.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
 
 # Axis labels
-ax.set_xlabel(r'H0-entropy', fontsize=10)
-ax.set_ylabel(r'H1-entropy', fontsize=10)
+ax.set_xlabel(r'H0-Beti', fontsize=10)
+ax.set_ylabel(r'H1-Beti', fontsize=10)
 
 # Show plot
 plt.show()
