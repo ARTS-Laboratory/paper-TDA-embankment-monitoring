@@ -5,7 +5,7 @@ import matplotlib.cm as cm
 from datetime import datetime
 from matplotlib.ticker import FormatStrFormatter
 
-# Apply LaTeX Formatting for Matplotlib
+# LaTeX Formatting for Matplotlib
 plt.rcParams.update({'text.usetex': True})  
 plt.rcParams.update({'font.family': 'serif'})  
 plt.rcParams.update({'font.serif': ['Times New Roman', 'Times', 'DejaVu Serif']})  
@@ -13,9 +13,9 @@ plt.rcParams.update({'font.size': 10})
 plt.rcParams.update({'mathtext.rm': 'serif'})  
 plt.rcParams.update({'mathtext.fontset': 'custom'})  
 
-# ------------------------
-# 1) Define your data
-# ------------------------
+
+# data point
+
 data_points = {
     "2021-06": (9.4841538660995, 6.80312288450234),
     "2021-08": (9.26470523171643, 6.63823350095655),
@@ -25,64 +25,63 @@ data_points = {
     "2023-09": (9.37618875152874, 6.9889303875193)
 }
 
-# Convert date strings to datetime objects
+# converting the date strings to datetime objects
 date_format = "%Y-%m"
 date_labels = list(data_points.keys())
 date_objects = [datetime.strptime(date, date_format) for date in date_labels]
 
-# Convert dates to numeric values (days since earliest)
+# converting dates to numeric values earliest days
 min_date = min(date_objects)
 date_days = np.array([(d - min_date).days for d in date_objects])
 
-# Extract (x, y) points
+#  (x, y) points
 x, y = zip(*data_points.values())
 
-# ------------------------
-# 2) Plotting the data
-# ------------------------
+# plotting the data
+
 fig, ax = plt.subplots(figsize=(5, 4), dpi=300)  
 plt.tight_layout(pad=1.7)
 
-# Normalize using actual date range (days)
+# normalize using actual date range (days)
 norm = Normalize(vmin=np.min(date_days), vmax=np.max(date_days))
 cmap = cm.viridis
 
-# Scatter plot with real-time mapped colors
+# scatter plot
 sc = ax.scatter(x, y, c=date_days, cmap=cmap, norm=norm, s=50, zorder=3)
 
-# Annotate points
+# annotate points
 for i, date in enumerate(date_labels):
     x_offset = 0.03 * (max(x) - min(x))
     ax.text(x[i] + x_offset, y[i], f'{date}', fontsize=10, ha='left', va='center', zorder=5)
 
-# ------------------------
-# 3) Add fixed colorbar
-# ------------------------
+# add fixed colorbar
+
 cbar = plt.colorbar(sc, ax=ax)
 tick_values = date_days
 tick_labels = date_labels
 cbar.set_ticks(tick_values)
 cbar.set_ticklabels(tick_labels)
 cbar.ax.set_ylabel('time', fontsize=10)
-cbar.ax.tick_params(labelsize=9)               # Font size for tick labels
+cbar.ax.tick_params(labelsize=9)               
 
-# Grid and formatting
+# axis limits
+
 ax.grid(True, linestyle='-', linewidth=0.5, alpha=0.7, zorder=1)
 ax.tick_params(axis='both', labelsize=9)
 
 # Manually set axis limits
-ax.set_xlim(9.25, 9.55)       # X-axis domain
-ax.set_ylim(6.6, 7.1)    # Y-axis domain
+ax.set_xlim(9.25, 9.55)       
+ax.set_ylim(6.6, 7.1)    
 
-# Custom ticks based on manual limits
+# custom ticks based on manual limits
 ax.set_xticks(np.linspace(9.25, 9.55, num=6))
 ax.set_yticks(np.linspace(6.6, 7.1, num=6))
 ax.xaxis.set_major_formatter(FormatStrFormatter('%.1f'))
 ax.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
 
-# Axis labels
+
 ax.set_xlabel(r'H0-entropy', fontsize=10)
 ax.set_ylabel(r'H1-entropy', fontsize=10)
 
-# Show plot
+
 plt.show()
