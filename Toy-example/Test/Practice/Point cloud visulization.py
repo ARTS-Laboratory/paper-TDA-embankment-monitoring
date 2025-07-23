@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import open3d as o3d
 
 # Load the LAS file (Change file path as needed)
-las_file_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/slope_with_abnormalities.las"  # 🔹 Change this to your .las file path
+las_file_path = "C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2024-02/TerryRoad_Feb2024_GE_ReSampled.laz"  # 🔹 Change this to your .las file path
 las = laspy.read(las_file_path)
 
 # Extract X, Y, Z coordinates
