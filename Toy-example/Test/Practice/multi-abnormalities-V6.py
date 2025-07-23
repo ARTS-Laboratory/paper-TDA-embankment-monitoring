@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 plt.rcParams.update({'text.usetex': True})  
 plt.rcParams.update({'font.family': 'serif'})  
 plt.rcParams.update({'font.serif': ['Times New Roman', 'Times', 'DejaVu Serif']})  
-plt.rcParams.update({'font.size': 4})  
+plt.rcParams.update({'font.size':  8})  
 plt.rcParams.update({'mathtext.rm': 'serif'})  
 plt.rcParams.update({'mathtext.fontset': 'custom'}) 
 
