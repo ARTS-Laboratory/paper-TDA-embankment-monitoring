@@ -81,7 +81,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #  point cloud from .las file
-las = laspy.read("C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/visualization/synthetic_surface.las")
+las = laspy.read("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/synthetic_surface.las")
+
 X = np.vstack((las.x, las.y, las.z)).T  # Shape: (N, 3)
 
 # Extracting X, Y, Z

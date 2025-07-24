@@ -40,7 +40,7 @@ class tda:
         self.metrics = ["bottleneck", "wasserstein", "landscape", "persistence_image", "betti", "heat"]
         self.diag = None
 ##################
-    def random_sampling_consensus(self, pcd, m=950, K=10):
+    def random_sampling_consensus(self, pcd, m=1000, K=10):
         """
         Implements a consensus procedure using random sampling.
         
@@ -148,11 +148,12 @@ class tda:
 
 def process_multiple_las_files():
     # 1) Specify the directory containing your .las files.
-    directory_path ="C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data"
+    directory_path ="C:/Users/GOLZARDM/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2023-09/laz"
+    
     
     # 2) List the filenames in the order you wish to process them. this command automatically calls several inputs
     file_list = [
-        "terryRoad_Feb2024.las",
+        "2023-09.laz",
         #"surface_with_smooth_circular_cavity_20.las",
         # Add more filenames as needed...
     ]
@@ -181,7 +182,7 @@ def process_multiple_las_files():
         print("Point cloud shape:", point_cloud.shape)
         
         # 6) Run the random sampling consensus procedure with fixed m and K.
-        m = 950  # Sample size: 3000 points per iteration.
+        m = 1000  # Sample size: 3000 points per iteration.
         K = 10    # Number of iterations.
         median_features = my_tda.random_sampling_consensus(point_cloud, m=m, K=K)
         
