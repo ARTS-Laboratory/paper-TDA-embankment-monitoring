@@ -14,7 +14,13 @@ plt.rcParams.update({'mathtext.rm': 'serif'})
 plt.rcParams.update({'mathtext.fontset': 'custom'})  
 
 # loading the LAS file
+<<<<<<< HEAD
+#las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_cavity_50.las")
+las = laspy.read("C:/Users/hp zbook g5/Documents/GitHub/paper-TDA-embankment-monitoring/Toy-example/Data/synthetic_surface.las")
+
+=======
 las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_hump_50.las")
+>>>>>>> 0f525ec0ec724864e3a888dfc320a1d6ceaf9766
 xyz = np.vstack((las.x, las.y, las.z)).T
 
 # PCA performing in this step
