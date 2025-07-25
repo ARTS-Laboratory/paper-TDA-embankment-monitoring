@@ -27,7 +27,7 @@ print(f"Z range: {z_min:.2f} to {z_max:.2f}")
 # Set cavity/hump parameters
 # ----------------------------
 ab_center_coords = (711419.5, 308250.2)   # Customize this to your real-world center
-ab_radius = 3.0                           # Radius of abnormality
+ab_radius = 5.0                           # Radius of abnormality
 amplitude = -2                            # Negative for cavity, positive for hump
 print(f" Using cavity center: {ab_center_coords}")
 print(f" Radius: {ab_radius:.2f}, Amplitude: {amplitude}")

@@ -15,7 +15,7 @@ plt.rcParams.update({'mathtext.fontset': 'custom'})
 
 # Load the LAS file
 #las = laspy.read("C:/Users/hp zbook g5/Documents/GitHub/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_cavity_50.las")
-las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/surface_with_smooth_circular_cavity_50.las")
+las = laspy.read("C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/road_removed_with_cavity.las")
 xyz = np.vstack((las.x, las.y, las.z)).T
 
 # PCA performing in this step
@@ -73,7 +73,8 @@ plt.tight_layout(pad=0)
 plt.show()
 
 # Plot 3: 3D Scatter Plot
-fig = plt.figure(figsize=(6.5, 4), dpi=300)  # High DPI and shorter plot size
+#fig = plt.figure(figsize=(6.5, 4), dpi=300)  # High DPI and shorter plot size
+fig = plt.figure(figsize=(6.5, 4))
 ax = fig.add_subplot(111, projection='3d')
 
 # Combine cavity and hump points for a single plot with viridis coloring
@@ -81,7 +82,7 @@ points = np.vstack((cavity_points, hump_points))
 colors = np.concatenate((cavity_colors[:, 0], hump_colors[:, 0]))
 
 # Scatter plot with viridis colormap
-sc = ax.scatter(points[:, 0], points[:, 1], points[:, 2], c=colors, cmap='viridis', s=8)
+sc = ax.scatter(points[:, 0], points[:, 1], points[:, 2], c=colors, cmap='viridis', s=2)
 ax.set_xlabel("X", fontsize=8)
 ax.set_ylabel("Y", fontsize=8)
 ax.set_zlabel("Z", fontsize=8)
