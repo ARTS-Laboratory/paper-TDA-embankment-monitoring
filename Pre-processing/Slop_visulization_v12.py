@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #  point cloud from .las file
-las = laspy.read("C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2024-02/TerryRoad_Feb2024_GE_ReSampled.laz")
+las = laspy.read("C:/Users/hp zbook g5/Documents/GitHub/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz")
 X = np.vstack((las.x, las.y, las.z)).T  # shape: (N, 3)
 
 # Print the total number of points

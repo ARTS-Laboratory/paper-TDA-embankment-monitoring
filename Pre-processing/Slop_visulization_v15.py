@@ -10,13 +10,14 @@ from pathlib import Path
 from sklearn.metrics import r2_score
 
 # Load point cloud
-las = laspy.read("C:/Users/hp zbook g5/Documents/GitHub/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz")
+las = laspy.read("C:/Users/hp zbook g5/Documents/GitHub/paper-TDA-embankment-monitoring/Pre-processing/road_removed_with_abnormality.las")
+
 X = np.vstack((las.x, las.y, las.z)).T
 
 print(f"Total points: {len(X)}")
 
 # Subsampling
-num_points = 15000
+num_points = 400000    
 indices = np.random.choice(len(X), num_points, replace=False)
 X_subset = X[indices]
 xy = X_subset[:, :2]
@@ -38,7 +39,7 @@ def mls_surface_fit(xy, z, k=30):
 z_fit = mls_surface_fit(xy, z)
 residuals = z - z_fit
 std_res = np.std(residuals)
-threshold = 3 * std_res
+threshold = 4 * std_res
 abnormal_idx = np.where(np.abs(residuals) > threshold)[0]
 abnormal_pts = X_subset[abnormal_idx]
 

@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Load the LAZ file
-laz_file_path = "C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz"  # 🔹 Updated to .laz file
+laz_file_path = "C:/Users/hp zbook g5/Documents/GitHub/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz"  # 🔹 Updated to .laz file
 las = laspy.read(laz_file_path)
 
 # Extract X, Y, Z coordinates
