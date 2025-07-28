@@ -7,7 +7,7 @@ import os
 # ----------------------------
 # Load LAZ file
 # ----------------------------
-laz_file_path = "C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz"
+laz_file_path = "C:/Users/hp zbook g5/Documents/GitHub/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz"
 las = laspy.read(laz_file_path)
 xyz = np.vstack((las.x, las.y, las.z)).T
 print(f"Total number of points: {len(xyz)}")
@@ -51,7 +51,7 @@ sc = ax.scatter(xyz_subset[:, 0], xyz_subset[:, 1], xyz_subset[:, 2],
 ax.set_xlabel("X Coordinate")
 ax.set_ylabel("Y Coordinate")
 ax.set_zlabel("Z Coordinate")
-ax.set_title("3D Point Cloud with Road Removed and Cavity Applied")
+ax.set_title("3D Point Cloud with Road Removed and abnormality Applied")
 ax.set_zlim(z_min, z_max)
 cbar = plt.colorbar(sc, ax=ax, shrink=0.6)
 cbar.set_label("Elevation (Z)", rotation=270, labelpad=15)
@@ -78,6 +78,6 @@ new_las.X = ((xyz[:, 0] - header.offsets[0]) / header.scales[0]).astype(np.int32
 new_las.Y = ((xyz[:, 1] - header.offsets[1]) / header.scales[1]).astype(np.int32)
 new_las.Z = ((xyz[:, 2] - header.offsets[2]) / header.scales[2]).astype(np.int32)
 
-output_path = os.path.join(os.getcwd(), "road_removed_with_cavity.las")
+output_path = os.path.join(os.getcwd(), "road_removed_with_abnormality.las")
 new_las.write(output_path)
 print(f"Saved filtered and modified LAS to:\n{output_path}")
