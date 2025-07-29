@@ -9,9 +9,8 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 from sklearn.metrics import r2_score
 import pandas as pd
-
 # Load .las file
-las = laspy.read("C:/Users/hp zbook g5/Documents/GitHub/paper-TDA-embankment-monitoring/Pre-processing/road_removed_with_abnormality.las")
+las = laspy.read("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/road_removed_with_abnormality.las")
 X = np.vstack((las.x, las.y, las.z)).T
 print(f"Total points: {len(X)}")
 
