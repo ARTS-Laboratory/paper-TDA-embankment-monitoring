@@ -9,6 +9,7 @@ import os
 # Load LAZ file using laspy
 # ----------------------------
 laz_file_path = "C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz"
+C:\Users\golzardm\Documents\paper-TDA-embankment-monitoring\Pre-processing
 las = laspy.read(laz_file_path)
 xyz = np.vstack((las.x, las.y, las.z)).T
 print(f"✅ Total number of points: {len(xyz)}")
