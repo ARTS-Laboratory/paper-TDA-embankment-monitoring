@@ -10,14 +10,14 @@ from pathlib import Path
 from sklearn.metrics import r2_score
 
 # Load point cloud
-las = laspy.read("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/road_removed_with_abnormality.las")
+las = laspy.read("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/clean_slope_abnormality_added.las")
 
 X = np.vstack((las.x, las.y, las.z)).T
 
 print(f"Total points: {len(X)}")
 
 # Subsampling
-num_points = 1000463    
+num_points = 60000    
 indices = np.random.choice(len(X), num_points, replace=False)
 X_subset = X[indices]
 xy = X_subset[:, :2]
