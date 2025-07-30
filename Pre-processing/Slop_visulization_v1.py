@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Load the LAZ file
-laz_file_path = "C:/Users/hp zbook g5/Documents/GitHub/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz"  # 🔹 Updated to .laz file
+laz_file_path = "C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz"  # 🔹 Updated to .laz file
 las = laspy.read(laz_file_path)
 
 # Extract X, Y, Z coordinates
@@ -13,7 +13,7 @@ xyz = np.vstack((las.x, las.y, las.z)).T
 print(f"Total number of points: {len(xyz)}")
 #%%
 # Randomly select a subset of points (e.g., 10,000 points)
-num_points = 18000
+num_points = 90000
 if len(xyz) > num_points:
     indices = np.random.choice(len(xyz), num_points, replace=False)
     xyz_subset = xyz[indices]

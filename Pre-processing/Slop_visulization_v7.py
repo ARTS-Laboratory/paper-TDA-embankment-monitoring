@@ -19,7 +19,7 @@ print("Loaded:", xyz.shape[0], "points")
 print("Z range:", np.min(xyz[:, 2]), "to", np.max(xyz[:, 2]))
 #%%
 # -------------------- Step 2: Subsample -------------------- #
-num_points = 900000
+num_points = 1500364
 if xyz.shape[0] > num_points:
     idx = np.random.choice(len(xyz), num_points, replace=False)
     xyz = xyz[idx]

@@ -27,9 +27,9 @@ print(f"Z range: {z_min:.2f} to {z_max:.2f}")
 # ----------------------------
 # Set cavity/hump parameters
 # ----------------------------
-ab_center_coords = (711413.5, 308255.2)   # Customize this to your real-world center
-ab_radius = 3.0                           # Radius of abnormality
-amplitude = -2                            # Negative for cavity, positive for hump
+ab_center_coords = (711417.5, 308255.2)   # Customize this to your real-world center
+ab_radius = 2                           # Radius of abnormality
+amplitude = 0.8                            # Negative for cavity, positive for hump
 print(f" Using cavity center: {ab_center_coords}")
 print(f" Radius: {ab_radius:.2f}, Amplitude: {amplitude}")
 
@@ -49,7 +49,7 @@ print(f" dz range: min = {dz_min:.3f}, max = {dz_max:.3f}")
 # ----------------------------
 # Subsample for plotting (max 30,000 points)
 # ----------------------------
-num_points = 30000
+num_points = 62000
 if len(xyz) > num_points:
     indices = np.random.choice(len(xyz), num_points, replace=False)
     xyz_subset = xyz[indices]
@@ -101,6 +101,6 @@ las.X = ((xyz[:, 0] - las.header.offsets[0]) / las.header.scales[0]).astype(np.i
 las.Y = ((xyz[:, 1] - las.header.offsets[1]) / las.header.scales[1]).astype(np.int32)
 las.Z = ((xyz[:, 2] - las.header.offsets[2]) / las.header.scales[2]).astype(np.int32)
 
-output_path = os.path.join(os.getcwd(), "clean_slope_abnormality_added.las")
+output_path = os.path.join(os.getcwd(), "clean_slope_simple_slope.las")
 las.write(output_path)
 print(f" Saved modified LAS file to:\n{output_path}")
