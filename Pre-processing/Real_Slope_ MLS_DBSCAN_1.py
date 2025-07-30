@@ -15,9 +15,9 @@ las = laspy.read("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pr
 X = np.vstack((las.x, las.y, las.z)).T
 
 print(f"Total points: {len(X)}")
-
+#%%
 # Subsampling
-num_points = 60000    
+num_points = 600000    
 indices = np.random.choice(len(X), num_points, replace=False)
 X_subset = X[indices]
 xy = X_subset[:, :2]
@@ -39,12 +39,12 @@ def mls_surface_fit(xy, z, k=30):
 z_fit = mls_surface_fit(xy, z)
 residuals = z - z_fit
 std_res = np.std(residuals)
-threshold = 5 * std_res
+threshold = 3 * std_res
 abnormal_idx = np.where(np.abs(residuals) > threshold)[0]
 abnormal_pts = X_subset[abnormal_idx]
 
 # Step 2: DBSCAN clustering
-db = DBSCAN(eps=1.2, min_samples=2).fit(abnormal_pts[:, :2])
+db = DBSCAN(eps=1.5, min_samples=2).fit(abnormal_pts[:, :2])
 labels = db.labels_
 num_clusters = len(set(labels)) - (1 if -1 in labels else 0)
 
@@ -53,7 +53,7 @@ plt.ion()
 fig = plt.figure(figsize=(8, 6))
 ax = fig.add_subplot(111, projection='3d')
 ax.scatter(abnormal_pts[:, 0], abnormal_pts[:, 1], abnormal_pts[:, 2],
-           c=labels, cmap='tab20', s=3)
+           c=labels, cmap='viridis', s=5)
 ax.set_title(f"MLS + DBSCAN ({num_clusters} Clusters)")
 ax.set_xlabel("X")
 ax.set_ylabel("Y")

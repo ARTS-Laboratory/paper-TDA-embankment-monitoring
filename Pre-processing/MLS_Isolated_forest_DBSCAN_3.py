@@ -7,11 +7,12 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 # --- Load Point Cloud ---
-las = laspy.read("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/road_removed_with_abnormality.las")
+las = laspy.read("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/clean_slope_abnormality_added.las")
 X = np.vstack((las.x, las.y, las.z)).T
-
+print(f"Total points: {len(X)}")
+#%%
 # --- Subsample for faster processing ---
-num_points = 15000
+num_points = 150000
 indices = np.random.choice(len(X), num_points, replace=False)
 X_subset = X[indices]
 xy = X_subset[:, :2]
@@ -80,7 +81,7 @@ from pathlib import Path
 # --- Define Bounding Boxes (X, Y, Z bounds) ---
 bounding_boxes = [
     # Format: (xmin, xmax, ymin, ymax, zmin, zmax)
-    (711402, 711425, 308239, 308260, 91.23, 95.7),  # Example: middle cavity
+    (711406, 711420, 308251, 308264, 91.23, 95.7),  # Example: middle cavity
     # Add more if needed:
     # (x1, x2, y1, y2, z1, z2),
 ]

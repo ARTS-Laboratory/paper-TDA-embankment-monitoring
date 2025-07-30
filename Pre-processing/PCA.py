@@ -21,7 +21,7 @@ pca = PCA(n_components=3)
 pc_values = pca.fit_transform(xyz)
 
 # Threshold factor
-threshold_factor = 3  # Adjust this to control outlier strictness
+threshold_factor = 3.5  # Adjust this to control outlier strictness
 
 # Compute mean and std
 mean_pc3 = np.mean(pc_values[:, 2])
