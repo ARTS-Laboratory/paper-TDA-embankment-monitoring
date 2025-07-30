@@ -8,11 +8,11 @@ import os
 # ----------------------------
 # Load LAZ file using laspy
 # ----------------------------
-laz_file_path = "C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz"
-C:\Users\golzardm\Documents\paper-TDA-embankment-monitoring\Pre-processing
+laz_file_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/cleaned_slope.las"
+
 las = laspy.read(laz_file_path)
 xyz = np.vstack((las.x, las.y, las.z)).T
-print(f"✅ Total number of points: {len(xyz)}")
+print(f" Total number of points: {len(xyz)}")
 
 # ----------------------------
 # Print coordinate bounds
@@ -27,8 +27,8 @@ print(f"Z range: {z_min:.2f} to {z_max:.2f}")
 # ----------------------------
 # Set cavity/hump parameters
 # ----------------------------
-ab_center_coords = (711419.5, 308250.2)   # Customize this to your real-world center
-ab_radius = 5.0                           # Radius of abnormality
+ab_center_coords = (711413.5, 308255.2)   # Customize this to your real-world center
+ab_radius = 3.0                           # Radius of abnormality
 amplitude = -2                            # Negative for cavity, positive for hump
 print(f" Using cavity center: {ab_center_coords}")
 print(f" Radius: {ab_radius:.2f}, Amplitude: {amplitude}")
@@ -101,6 +101,6 @@ las.X = ((xyz[:, 0] - las.header.offsets[0]) / las.header.scales[0]).astype(np.i
 las.Y = ((xyz[:, 1] - las.header.offsets[1]) / las.header.scales[1]).astype(np.int32)
 las.Z = ((xyz[:, 2] - las.header.offsets[2]) / las.header.scales[2]).astype(np.int32)
 
-output_path = os.path.join(os.getcwd(), "modified_abnormality_output.las")
+output_path = os.path.join(os.getcwd(), "clean_slope_abnormality_added.las")
 las.write(output_path)
 print(f" Saved modified LAS file to:\n{output_path}")

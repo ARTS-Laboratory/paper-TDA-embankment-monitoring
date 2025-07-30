@@ -5,13 +5,13 @@ import os
 import sys
 
 # -------------------- Step 1: Load Point Cloud -------------------- #
-laz_path = "C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2024-02/TerryRoad_Feb2024_GE_ReSampled.laz"
+laz_path = "C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz"
 #laz_path = "C:/Users/hp zbook g5/Documents/GitHub/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2024-02/TerryRoad_Feb2024_GE_ReSampled.laz"
 
 las = laspy.read(laz_path)
 xyz = np.vstack((las.x, las.y, las.z)).T
 
-print("✅ Loaded:", xyz.shape[0], "points")
+print("Loaded:", xyz.shape[0], "points")
 print("Z range:", np.min(xyz[:, 2]), "to", np.max(xyz[:, 2]))
 
 # -------------------- Step 2: Optional Subsampling for Plotting -------------------- #

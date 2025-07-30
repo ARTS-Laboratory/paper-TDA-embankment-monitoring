@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 # Load point cloud from .las file
-las = laspy.read("C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2024-02/TerryRoad_Feb2024_GE_ReSampled.laz")
+las = laspy.read("C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz")
 X = np.vstack((las.x, las.y, las.z)).T  # shape: (N, 3)
 
 print(f"Total number of points: {len(X)}")
@@ -99,7 +99,7 @@ las_out.z = clustered_points[:, 2]
 
 output_path = Path("clustered_abnormalities.las")
 las_out.write(str(output_path))
-print(f"✅ Clustered abnormalities saved to: '{output_path}'")
+print(f" Clustered abnormalities saved to: '{output_path}'")
 
 #%% Evaluation
 r2 = r2_score(z_true, z_pred)

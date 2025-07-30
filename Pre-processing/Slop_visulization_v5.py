@@ -23,10 +23,10 @@ xyz_road_removed = xyz[~road_mask]
 print(f"Points after road removal: {len(xyz_road_removed)}")
 
 # Define the four points for the river/strip (replace with your picked coordinates)
-point1 = np.array([711410.123, 30.456, 89.789])  # Replace with your P1
-point2 = np.array([711430.789, 30.123, 91.234])  # Replace with your P2
-point3 = np.array([711410.456, 40.789, 92.345])  # Replace with your P3
-point4 = np.array([711430.234, 40.123, 94.567])  # Replace with your P4
+point1 = np.array([711399.83, 308218.24, 91.60])  # Replace with your P1
+point2 = np.array([711405.37, 308227.27, 91.60])  # Replace with your P2
+point3 = np.array([711389.43, 308249.82, 95.71])  # Replace with your P3
+point4 = np.array([711389.43, 308234.38, 96.79])  # Replace with your P4
 
 # Calculate the bounding box from the four points
 x_min = min(point1[0], point2[0], point3[0], point4[0])
@@ -51,7 +51,7 @@ print(f"Points before river/strip removal: {len(xyz_road_removed)}")
 print(f"Points after river/strip removal: {len(xyz_cleaned)}")
 
 # Randomly select a subset of points (e.g., 10,000 points) from cleaned data
-num_points = 10000
+num_points = 100000
 if len(xyz_cleaned) > num_points:
     indices = np.random.choice(len(xyz_cleaned), num_points, replace=False)
     xyz_subset = xyz_cleaned[indices]

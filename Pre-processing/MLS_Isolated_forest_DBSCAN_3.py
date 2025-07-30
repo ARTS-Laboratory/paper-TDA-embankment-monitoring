@@ -138,5 +138,5 @@ las_out.z = final_selected[:, 2]
 output_path = Path("selected_clusters_filtered.las")
 las_out.write(str(output_path))
 
-print(f"\n✅ Filtered cavity saved as: {output_path}")
-print(f"🟢 Number of points saved: {len(final_selected)}")
+print(f"\nFiltered cavity saved as: {output_path}")
+print(f" Number of points saved: {len(final_selected)}")

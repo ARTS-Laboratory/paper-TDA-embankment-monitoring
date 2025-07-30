@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 
 
 # -------------------- Step 1: Load Point Cloud -------------------- #
-laz_path = "C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2024-02/TerryRoad_Feb2024_GE_ReSampled.laz"
+laz_path = "C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz"
 #laz_path = "C:/Users/hp zbook g5/Documents/GitHub/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2024-02/TerryRoad_Feb2024_GE_ReSampled.laz"
 
 las = laspy.read(laz_path)
@@ -19,13 +19,13 @@ print("Loaded:", xyz.shape[0], "points")
 print("Z range:", np.min(xyz[:, 2]), "to", np.max(xyz[:, 2]))
 
 # -------------------- Step 2: Subsample -------------------- #
-num_points = 10000
+num_points = 100000
 if xyz.shape[0] > num_points:
     idx = np.random.choice(len(xyz), num_points, replace=False)
     xyz = xyz[idx]
 
 # -------------------- Step 3: Z-Threshold Filtering -------------------- #
-z_threshold = 203
+z_threshold = 92
 xyz = xyz[xyz[:, 2] > z_threshold]
 
 # -------------------- Step 4: Interactive Polygon Selection -------------------- #

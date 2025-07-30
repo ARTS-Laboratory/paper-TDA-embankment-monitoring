@@ -9,48 +9,67 @@ import pandas as pd
 import laspy
 import numpy as np
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 #  point cloud from .las file
-las = laspy.read("C:/Users/hp zbook g5/Documents/GitHub/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz")
+las = laspy.read("C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz/2021-06.laz")
 X = np.vstack((las.x, las.y, las.z)).T  # shape: (N, 3)
 
 # Print the total number of points
 print(f"Total number of points: {len(X)}")
 #%%
 # Randomly select a subset of points (set for num_points a value)
-num_points = 8000
+num_points = 15000
 if len(X) > num_points:
     indices = np.random.choice(len(X), num_points, replace=False)
     X_subset = X[indices]
 else:
     X_subset = X
+
 #%%
 # Extracting X, Y, Z
 xy = X[:, :2]
 z_true = X[:, 2]
 
-#  fit a smooth surface using polynomial regression (RANSAC for robustness)
+# Step 1: Fit initial model with temp residual_threshold
 degree = 2
 poly = PolynomialFeatures(degree=degree)
-model = make_pipeline(poly, RANSACRegressor(LinearRegression(), residual_threshold=1.5))
+temp_threshold = 1.0  # Safe starting point
+model = make_pipeline(poly, RANSACRegressor(LinearRegression(), residual_threshold=temp_threshold))
 model.fit(xy, z_true)
 
-#  Predict smooth surface and compute residuals
+# Step 2: Predict and compute residuals
+z_pred = model.predict(xy)
+residuals = z_true - z_pred
+std_residual = np.std(residuals)
+
+# Step 3: Use standard deviation to tune thresholds
+residual_threshold = 1.5 * std_residual
+threshold = 2.5 * std_residual
+print(f"Adaptive residual_threshold = {residual_threshold:.3f}")
+print(f"Adaptive threshold for abnormality = {threshold:.3f}")
+
+# Step 4: Refit the model with adaptive residual_threshold
+model = make_pipeline(poly, RANSACRegressor(LinearRegression(), residual_threshold=residual_threshold))
+model.fit(xy, z_true)
+
+# Step 5: Recompute predictions and residuals
 z_pred = model.predict(xy)
 residuals = z_true - z_pred
 
-#  threshold adjustment the residuals to detect abnormalities
-threshold = 1  # Sensitivity threshold  (Lower=More sensitive → detects tiny bumps, even noise might be flagged & Higher=Less sensitive → detects only larger anomalies like humps or cavities)
-
+# Step 6: Abnormality detection
 abnormal_indices = np.where(np.abs(residuals) > threshold)[0]
 abnormal_points = X[abnormal_indices]
 
-#  apply DBSCAN clustering on abnormal regions
+# Step 7: Apply DBSCAN
+from sklearn.cluster import DBSCAN
+
 db = DBSCAN(eps=1.2, min_samples=2).fit(abnormal_points[:, :2])
 labels = db.labels_
 num_clusters = len(set(labels)) - (1 if -1 in labels else 0)
 
-# Plot detected abnormalities with residual magnitude
+# Step 8: Visualization
+import matplotlib.pyplot as plt
 plt.rcParams.update({
     'image.cmap': 'viridis',
     'font.serif': [
@@ -65,9 +84,11 @@ plt.rcParams.update({
 
 fig = plt.figure(figsize=(8, 6))
 ax = fig.add_subplot(111, projection='3d')
-scatter = ax.scatter(abnormal_points[:, 0], abnormal_points[:, 1], abnormal_points[:, 2],
-                     c=np.abs(residuals[abnormal_indices]), cmap='viridis', s=2)
-cb = plt.colorbar(scatter, ax=ax, shrink=0.6, pad=0.1)
+scatter = ax.scatter(abnormal_points[::2, 0], abnormal_points[::2, 1], abnormal_points[::2, 2],
+                     c=np.abs(residuals[abnormal_indices])[::2], cmap='terrain', s=0.3)
+
+cb = plt.colorbar(scatter, ax=ax, shrink=0.2, pad=0.1)
+
 cb.set_label("Residual Magnitude")
 ax.set_title(f"Detected Abnormalities via Residuals + DBSCAN Clustering ({num_clusters} clusters)")
 ax.set_xlabel("X")
@@ -76,39 +97,37 @@ ax.set_zlabel("Z")
 plt.tight_layout()
 plt.show()
 
-# Save abnormalities to LAS file (robust version)
+# Step 9: Save abnormalities to LAS
 from pathlib import Path
+import laspy
 
-# Calculate appropriate offset and scale
 min_vals = abnormal_points.min(axis=0)
-max_vals = abnormal_points.max(axis=0)
-scale = 0.001  # You can change to 0.01 or 0.0001 if needed
-offset = min_vals - 1000  # pad to ensure safety
+scale = 0.001
+offset = min_vals - 1000
 
-# Create header with correct offset and scale
 header = laspy.LasHeader(point_format=3, version="1.2")
 header.x_scale = header.y_scale = header.z_scale = scale
 header.x_offset = offset[0]
 header.y_offset = offset[1]
 header.z_offset = offset[2]
 
-# Create LasData and assign points
 las_out = laspy.LasData(header)
 las_out.x = abnormal_points[:, 0]
 las_out.y = abnormal_points[:, 1]
 las_out.z = abnormal_points[:, 2]
 
-# Save
 output_path = Path("abnormalities_ransac_dbscan.las")
 las_out.write(str(output_path))
-print(f"✅ Abnormalities saved to '{output_path}'")
+print(f"Abnormalities saved to '{output_path}'")
 
-# Print evaluation
+# Step 10: Final evaluation
+from sklearn.metrics import r2_score
+
 r2 = r2_score(z_true, z_pred)
-std_residual = np.std(residuals)
-
 print("\nPolynomial Fit Evaluation:")
 print(f"Degree: {degree}")
 print(f"R² Score: {r2:.5f}")
 print(f"Residual Std: {std_residual:.5f}")
+
+
 

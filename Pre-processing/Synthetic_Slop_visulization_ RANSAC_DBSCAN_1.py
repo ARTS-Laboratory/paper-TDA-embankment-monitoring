@@ -44,7 +44,7 @@ import pandas as pd
 
 
 # Load the synthetic surface
-X = np.load("C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/visualization/synthetic_curved_surface.npy")
+X = np.load("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/synthetic_curved_surface.npy")
 
 x, y, z = X[:, 0], X[:, 1], X[:, 2]
 
