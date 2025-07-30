@@ -15,7 +15,7 @@ las = laspy.read("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pr
 X = np.vstack((las.x, las.y, las.z)).T
 
 print(f"Total points: {len(X)}")
-
+#%%
 # Subsampling
 num_points = 60000    
 indices = np.random.choice(len(X), num_points, replace=False)
