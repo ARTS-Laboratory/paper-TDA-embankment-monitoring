@@ -82,8 +82,8 @@ from pathlib import Path
 bounding_boxes = [
     # Format: (xmin, xmax, ymin, ymax, zmin, zmax)
     (711406, 711420, 308251, 308264, 91.23, 95.7),  # Example: middle cavity
-    # Add more if needed:
-    # (x1, x2, y1, y2, z1, z2),
+    
+    (711400.75, 711410, 308256, 308264, 94.27, 94.92),
 ]
 
 # --- Filter Points Inside Any Bounding Box ---

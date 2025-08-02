@@ -13,7 +13,7 @@ plt.rcParams.update({'mathtext.rm': 'serif'})
 plt.rcParams.update({'mathtext.fontset': 'custom'})
 
 # Load the LAS file
-las = laspy.read("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/abnormality_hump_4.las")
+las = laspy.read("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/abnormality_cavity_3.las")
 xyz = np.vstack((las.x, las.y, las.z)).T
 
 # PCA transformation
@@ -21,29 +21,35 @@ pca = PCA(n_components=3)
 pc_values = pca.fit_transform(xyz)
 
 # Threshold factor
-threshold_factor = 2.5 # Adjust this to control outlier strictness
+threshold_factor = 2.5
+ # Adjust this to control outlier strictness
 
-# Compute mean and std
+# Compute mean and std of PC3
 mean_pc3 = np.mean(pc_values[:, 2])
 std_pc3 = np.std(pc_values[:, 2])
 
 # Masking surface and outliers
 flat_surface_mask = (pc_values[:, 2] >= (mean_pc3 - threshold_factor * std_pc3)) & \
-                     (pc_values[:, 2] <= (mean_pc3 + threshold_factor * std_pc3))
+                    (pc_values[:, 2] <= (mean_pc3 + threshold_factor * std_pc3))
 non_surface_points = xyz[~flat_surface_mask]
 
 # Separate cavity and hump points
 cavity_points = xyz[pc_values[:, 2] < (mean_pc3 - threshold_factor * std_pc3)]
 hump_points = xyz[pc_values[:, 2] > (mean_pc3 + threshold_factor * std_pc3)]
 
-# Normalize PC3 values
+# Normalize PC3 values to [0, 1] range
 pc3_min, pc3_max = np.min(pc_values[:, 2]), np.max(pc_values[:, 2])
 normalized_pc3 = (pc_values[:, 2] - pc3_min) / (pc3_max - pc3_min)
 
-cavity_colors = plt.cm.plasma(normalized_pc3[pc_values[:, 2] < (mean_pc3 - threshold_factor * std_pc3)])
-hump_colors = plt.cm.plasma(normalized_pc3[pc_values[:, 2] > (mean_pc3 + threshold_factor * std_pc3)])
+# Get corresponding normalized values for color
+pc3_cavity = normalized_pc3[pc_values[:, 2] < (mean_pc3 - threshold_factor * std_pc3)]
+pc3_hump   = normalized_pc3[pc_values[:, 2] > (mean_pc3 + threshold_factor * std_pc3)]
 
-# 2D Top View
+# Color maps for 2D views
+cavity_colors = plt.cm.plasma(pc3_cavity)
+hump_colors   = plt.cm.plasma(pc3_hump)
+
+# Top View (X-Y)
 plt.figure(figsize=(6.5, 4))
 plt.scatter(cavity_points[:, 0], cavity_points[:, 1], s=8, c=cavity_colors, label="Cavities")
 plt.scatter(hump_points[:, 0], hump_points[:, 1], s=8, c=hump_colors, label="Humps")
@@ -57,7 +63,7 @@ plt.yticks(fontsize=8)
 plt.tight_layout(pad=0)
 plt.show()
 
-# 2D Side View
+# Side View (X-Z)
 plt.figure(figsize=(6.5, 4))
 plt.scatter(cavity_points[:, 0], cavity_points[:, 2], s=8, c=cavity_colors, label="Cavities")
 plt.scatter(hump_points[:, 0], hump_points[:, 2], s=8, c=hump_colors, label="Humps")
@@ -72,7 +78,7 @@ plt.show()
 
 # 3D Plot with Subsampling for Speed
 points = np.vstack((cavity_points, hump_points))
-colors = np.concatenate((cavity_colors[:, 0], hump_colors[:, 0]))
+colors = np.concatenate((pc3_cavity, pc3_hump))  # Correct: use scalar normalized PC3 values
 
 # Subsample for faster rendering
 max_plot_points = 8000
@@ -81,7 +87,8 @@ if points.shape[0] > max_plot_points:
     points = points[indices]
     colors = colors[indices]
 
-fig = plt.figure(figsize=(6.5, 4))  # Avoid high dpi for interactivity
+# 3D Scatter Plot
+fig = plt.figure(figsize=(6.5, 4))
 ax = fig.add_subplot(111, projection='3d')
 sc = ax.scatter(points[:, 0], points[:, 1], points[:, 2], c=colors, cmap='viridis', s=2)
 
@@ -96,8 +103,8 @@ ax.tick_params(axis='z', labelsize=8)
 plt.tight_layout()
 plt.show()
 
-# Save filtered points
-output_file = "abnormalities_only.las"
+# Save filtered points (hump + cavity)
+output_file = "abnormalities_only_cavity_4.las.las"
 header = laspy.LasHeader(point_format=las.header.point_format.id, version=las.header.version)
 filtered_las = laspy.LasData(header)
 filtered_las.x = non_surface_points[:, 0]
@@ -106,30 +113,33 @@ filtered_las.z = non_surface_points[:, 2]
 filtered_las.write(output_file)
 print(f"Filtered point cloud saved to: {output_file}")
 
-# Covariance Heatmaps
-cov_matrix_before_pca = np.cov(xyz.T)
-cov_matrix_after_pca = np.cov(pc_values.T)
+# # Covariance Heatmaps
+# cov_matrix_before_pca = np.cov(xyz.T)
+# cov_matrix_after_pca = np.cov(pc_values.T)
 
-fig = plt.figure(figsize=(3.5, 4))
-sns.heatmap(cov_matrix_before_pca, annot=True, fmt=".2f", cmap="coolwarm",
-            annot_kws={"fontfamily": "serif", "fontsize": 12},
-            xticklabels=['X', 'Y', 'Z'],
-            yticklabels=['X', 'Y', 'Z'])
-plt.xlabel("dimensions", fontsize=10)
-plt.ylabel("dimensions", fontsize=10)
-plt.xticks(fontsize=8)
-plt.yticks(fontsize=8)
-plt.tight_layout(pad=0.2)
-plt.show()
+# # Heatmap before PCA
+# fig = plt.figure(figsize=(3.5, 4))
+# sns.heatmap(cov_matrix_before_pca, annot=True, fmt=".2f", cmap="coolwarm",
+#             annot_kws={"fontfamily": "serif", "fontsize": 12},
+#             xticklabels=['X', 'Y', 'Z'],
+#             yticklabels=['X', 'Y', 'Z'])
+# plt.xlabel("dimensions", fontsize=10)
+# plt.ylabel("dimensions", fontsize=10)
+# plt.xticks(fontsize=8)
+# plt.yticks(fontsize=8)
+# plt.tight_layout(pad=0.2)
+# plt.show()
 
-fig = plt.figure(figsize=(3.5, 4))
-sns.heatmap(cov_matrix_after_pca, annot=True, fmt=".2f", cmap="coolwarm",
-            annot_kws={"fontfamily": "serif", "fontsize": 12},
-            xticklabels=['PC1', 'PC2', 'PC3'],
-            yticklabels=['PC1', 'PC2', 'PC3'])
-plt.xlabel("principal components", fontsize=10)
-plt.ylabel("principal components", fontsize=10)
-plt.xticks(fontsize=8)
-plt.yticks(fontsize=8)
-plt.tight_layout(pad=0.2)
-plt.show()
+# # Heatmap after PCA
+# fig = plt.figure(figsize=(3.5, 4))
+# sns.heatmap(cov_matrix_after_pca, annot=True, fmt=".2f", cmap="coolwarm",
+#             annot_kws={"fontfamily": "serif", "fontsize": 12},
+#             xticklabels=['PC1', 'PC2', 'PC3'],
+#             yticklabels=['PC1', 'PC2', 'PC3'])
+# plt.xlabel("principal components", fontsize=10)
+# plt.ylabel("principal components", fontsize=10)
+# plt.xticks(fontsize=8)
+# plt.yticks(fontsize=8)
+# plt.tight_layout(pad=0.2)
+# plt.show()
+
