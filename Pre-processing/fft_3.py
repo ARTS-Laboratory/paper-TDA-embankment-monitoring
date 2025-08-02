@@ -49,13 +49,13 @@ if selected_polygon:
     selected = points[inside]
 
     if selected.shape[0] == 0:
-        print("⚠️ No points found inside the selected polygon.")
+        print(" No points found inside the selected polygon.")
     else:
-        new_las = laspy.LasData(las.header)  # ✅ Corrected: no `.copy()` needed
+        new_las = laspy.LasData(las.header)  # Corrected: no `.copy()` needed
         new_las.points = las.points[inside]  # Keep original point format
         output_path = os.path.join(os.getcwd(), "selected_region_1.las")
         new_las.write(output_path)
-        print(f"✅ Saved {selected.shape[0]} points to: {output_path}")
+        print(f" Saved {selected.shape[0]} points to: {output_path}")
 
         # 3D Plot
         fig = plt.figure()
@@ -69,4 +69,4 @@ if selected_polygon:
         plt.tight_layout()
         plt.show()
 else:
-    print("❌ No polygon was selected.")
+    print("No polygon was selected.")
