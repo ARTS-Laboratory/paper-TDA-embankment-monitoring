@@ -70,7 +70,7 @@ class tda:
 # Main body of the program
 
 # Load the LAS file
-file_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Toy-example/Data/PCA-Cavity-50.las"
+file_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/3D_hump_5.las"
 print("Opening LAS file:", file_path)
 with laspy.open(file_path) as f:
     las = f.read()

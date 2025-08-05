@@ -54,9 +54,12 @@ class tda:
         """
         
         # Dynamically adjust `m` and `K` based on dataset size
-        m = min(500, int(1 * pcd.shape[0]))  # Use 80% of available points, max 500
-        K = max(3, min(10, int(0.05 * pcd.shape[0])))  # Adjust K dynamically
+        #m = min(500, int(1 * pcd.shape[0]))  # Use 80% of available points, max 500
+        #K = max(3, min(10, int(0.05 * pcd.shape[0])))  # Adjust K dynamically
         
+        # Sampling parameters 
+        m_percentage = 1  # Use 30% of data
+        K = 1    # Number of iterations.
         print(f"Using m={m} (sample size) and K={K} (iterations) for TDA.")
         
         features_list = []
@@ -152,11 +155,11 @@ class tda:
 
 def process_multiple_las_files():
     #  here is the directory containing the .las files.
-    directory_path ="C:/Users/GOLZARDM/Documents/paper-TDA-embankment-monitoring/Toy-example/Data"
+    directory_path ="C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing"
     
   #  here you can list the filenames that you wish to process them. (this command automatically calls several inputs_
     file_list = [
-        "Simple slop.las",
+        "3D_no_abnormalities.las",
         #"surface_with_smooth_circular_cavity_20.las",
         # .....  add any files
     ]
@@ -190,8 +193,24 @@ def process_multiple_las_files():
         
         # random sampling TDA on this point cloud. 
         
-        m = min(500, int(1 * point_cloud.shape[0]))  # here using 100% of available points, max 500
-        K = max(3, min(10, int(0.05 * point_cloud.shape[0])))  # between 3 and 10 iterations
+        # m = min(500, int(1 * point_cloud.shape[0]))  # here using 100% of available points, max 500
+        # K = max(3, min(10, int(0.05 * point_cloud.shape[0])))  # between 3 and 10 iterations
+        
+        # Show total point count
+        print(f"Total available points: {point_cloud.shape[0]}")
+
+        # === Sampling parameters ===
+        m_percentage = 1  # Use 30% of data
+        K = 1    # Number of iterations.
+        #k_ratio = 0.05      # 5% of points for K
+
+        # Set m (number of sampled points)
+        m = int(m_percentage * point_cloud.shape[0])
+        print(f"Sampling {m} points ({m_percentage * 100:.0f}% of total)")
+
+        # Set K (iterations or neighbors)
+        #K = max(3, min(10, int(k_ratio * point_cloud.shape[0])))
+        #print(f"Using K = {K} (based on {k_ratio * 100:.1f}% of total)")
         
         print(f"Using m={m} (sample size) and K={K} (iterations) for file: {filename}")
         median_features = my_tda.random_sampling_consensus(point_cloud, m=m, K=K)

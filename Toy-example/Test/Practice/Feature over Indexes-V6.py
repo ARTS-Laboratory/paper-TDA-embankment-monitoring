@@ -6,7 +6,7 @@ import numpy as np
 # -----------------------------
 # Load Excel file
 # -----------------------------
-file_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/Abnormalities_Features-V4.xlsx"
+file_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/Abnormalities_Features-V5.xlsx"
 df = pd.read_excel(file_path)
 
 # -----------------------------
@@ -72,8 +72,8 @@ for i, cols in enumerate(all_selections):
     # Main plot settings
     ax.set_xlabel(r"damage index", fontsize=8)
     ax.set_ylabel(r"normalized feature value", fontsize=8)
-    ax.set_xlim(-52, 52)
-    ax.set_xticks(np.arange(-50, 55, 10))
+    ax.set_xlim(-6, 6)
+    ax.set_xticks(np.arange(-6, 7, 2))
     ax.tick_params(axis='both', labelsize=7)
     ax.grid(True, color='gray', linestyle='-', linewidth=0.2, alpha=0.3)
 

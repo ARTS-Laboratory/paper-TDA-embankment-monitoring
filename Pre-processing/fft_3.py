@@ -7,7 +7,7 @@ from scipy.interpolate import griddata
 import os
 
 # ==== Step 1: Load LiDAR Point Cloud ====
-las = laspy.read("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/abnormality_hump_wireframe.las")
+las = laspy.read("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/Slope_hump_2.las")
 points = np.vstack((las.x, las.y, las.z)).T
 
 # ==== Step 2: Generate Heightmap ====
