@@ -193,8 +193,8 @@ def process_multiple_las_files():
         
         # random sampling TDA on this point cloud. 
         
-        # m = min(500, int(1 * point_cloud.shape[0]))  # here using 100% of available points, max 500
-        # K = max(3, min(10, int(0.05 * point_cloud.shape[0])))  # between 3 and 10 iterations
+         #m = min(500, int(1 * point_cloud.shape[0]))  # here using 100% of available points, max 500
+         #K = max(3, min(10, int(0.05 * point_cloud.shape[0])))  # between 3 and 10 iterations
         
         # Show total point count
         print(f"Total available points: {point_cloud.shape[0]}")
