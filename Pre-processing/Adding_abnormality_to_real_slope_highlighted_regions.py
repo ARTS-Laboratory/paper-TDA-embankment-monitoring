@@ -14,7 +14,7 @@ print(f"Total number of points: {len(xyz)}")
 # ==== Step 2: Add artificial abnormality (hump or cavity) ====
 ab_center_coords = (711414.5, 308255.2)  # X, Y
 ab_radius = 1.5
-amplitude = -1.0          # < 0 makes a cavity, > 0 a hump
+amplitude = 1.0          # < 0 makes a cavity, > 0 a hump
 
 dx = xyz[:, 0] - ab_center_coords[0]
 dy = xyz[:, 1] - ab_center_coords[1]
@@ -32,7 +32,7 @@ xyz_normal   = xyz[~abnormal_mask]
 print(f"Abnormal pts: {xyz_abnormal.shape[0]}, Normal pts: {xyz_normal.shape[0]}")
 
 # ==== Step 4: Grid and interpolate (with safety for small sets) ====
-grid_size = 250
+grid_size = 300
 x_min, x_max = np.min(xyz[:, 0]), np.max(xyz[:, 0])
 y_min, y_max = np.min(xyz[:, 1]), np.max(xyz[:, 1])
 xi = np.linspace(x_min, x_max, grid_size)
