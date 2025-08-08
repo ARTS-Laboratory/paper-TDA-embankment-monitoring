@@ -7,7 +7,7 @@ from scipy.interpolate import griddata
 import os
 
 # ==== Step 1: Load LiDAR Point Cloud ====
-las = laspy.read("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/Slope_hump_2.las")
+las = laspy.read("C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/Slope_hump_4.las")
 points = np.vstack((las.x, las.y, las.z)).T
 
 # ==== Step 2: Generate Heightmap ====
@@ -34,7 +34,7 @@ contour_levels = np.linspace(z_grid.min(), z_grid.max(), 15)
 contours = ax.contour(xv, yv, z_grid, levels=contour_levels, colors='k', linewidths=0.5)
 ax.clabel(contours, inline=True, fontsize=8)
 
-ax.set_title("Draw a polygon and press Enter or close the window")
+#ax.set_title("Draw a polygon and press Enter or close the window")
 ax.set_xlabel("X Coordinate")
 ax.set_ylabel("Y Coordinate")
 fig.colorbar(elev_map, ax=ax, label="Elevation (m)")

@@ -13,8 +13,8 @@ print(f"Total number of points: {len(xyz)}")
 
 # ==== Step 2: Add artificial abnormality (optional) ====
 ab_center_coords = (711414.5, 308255.2)
-ab_radius = 0
-amplitude = 0
+ab_radius = 1
+amplitude = -1
 dx = xyz[:, 0] - ab_center_coords[0]
 dy = xyz[:, 1] - ab_center_coords[1]
 dist_sq = dx**2 + dy**2
