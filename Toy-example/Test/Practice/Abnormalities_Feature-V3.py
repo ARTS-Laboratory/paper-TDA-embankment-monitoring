@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from math import ceil, sqrt
 
 # ====== CONFIG ======
-file_path = "C:/Users/hp zbook g5/Documents/GitHub/paper-TDA-embankment-monitoring/Pre-processing/Abnormalities_Features-V5.xlsx"  # change to "man.xlsx" on your PC
+file_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/Abnormalities_Features-V5.xlsx"  # change to "man.xlsx" on your PC
   # or "/mnt/data/Abnormalities_Features-V5.xlsx"
 preferred_sheet = None  # set to "Table" to force; else first sheet
 # ====================
