@@ -62,8 +62,8 @@ def plot_filled_tents(bd_pairs, title, y_gap=0.4, n_t=150, ny=15, max_features=2
     plt.show()
 
 # Try to use your files if they exist; otherwise demo data
-h0_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/3D_hump_3_H0.csv"
-h1_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/3D_hump_3_H1.csv"
+h0_path = "C:/Users\hp zbook g5\Documents\GitHub\paper-TDA-embankment-monitoring\Pre-processing/3D_hump_3_H0.csv"
+h1_path = "C:/Users\hp zbook g5\Documents\GitHub\paper-TDA-embankment-monitoring\Pre-processing/3D_hump_3_H1.csv"
 H0_pairs, have_h0 = load_pairs_or_demo(h0_path, seed=1)
 H1_pairs, have_h1 = load_pairs_or_demo(h1_path, seed=2)
 
