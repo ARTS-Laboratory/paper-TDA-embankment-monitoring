@@ -8,7 +8,8 @@ from sklearn.decomposition import PCA
 # =========================
 # 0) SETTINGS — EDIT THESE
 # =========================
-file_path = r"C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/TDA_PCA_template.xlsx"
+
+file_path = r"C:/Users/hp zbook g5/Documents/GitHub/paper-TDA-embankment-monitoring/Pre-processing/TDA_PCA_template.xlsx"
 excel_header_row = 0
 EPS = 1e-12
 
