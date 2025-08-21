@@ -148,7 +148,7 @@ for i, (ax, feat) in enumerate(zip(axes, CANON_FEATURES)):
         ax.set_ylim(-0.1, 1.1); ax.set_yticks([0, 0.5, 1.0])
         divider = make_axes_locatable(ax)
         cax = divider.append_axes("right", size=COLORBAR_SIZE, pad=COLORBAR_PAD)
-        plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cax).set_label(r"Humidity (\%)", fontsize=AXIS_FONTSIZE)
+        plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cax).set_label(r"Soil moisture (\%)", fontsize=AXIS_FONTSIZE)
         if n_pts >= 1:
             constant_debug.append((feat, float(np.nanmin(x)), float(np.nanmax(x))))
         rows.append({"feature": feat, "loo_acc": np.nan, "coef_stdX": np.nan,
@@ -161,7 +161,7 @@ for i, (ax, feat) in enumerate(zip(axes, CANON_FEATURES)):
         ax.set_ylim(-0.1, 1.1); ax.set_yticks([0, 0.5, 1.0])
         divider = make_axes_locatable(ax)
         cax = divider.append_axes("right", size=COLORBAR_SIZE, pad=COLORBAR_PAD)
-        plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cax).set_label(r"Humidity (\%)", fontsize=AXIS_FONTSIZE)
+        plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cax).set_label(r"Soil moisture (\%)", fontsize=AXIS_FONTSIZE)
         rows.append({"feature": feat, "loo_acc": np.nan, "coef_stdX": np.nan,
                      "intercept": np.nan, "x_star_p05": np.nan})
         continue
@@ -232,7 +232,7 @@ for i, (ax, feat) in enumerate(zip(axes, CANON_FEATURES)):
     cax = divider.append_axes("right", size=COLORBAR_SIZE, pad=COLORBAR_PAD)
     cb = plt.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cax)
     cb.ax.tick_params(labelsize=7)
-    cb.set_label(r"Humidity (\%)", fontsize=8)
+    cb.set_label(r"Soil moisture (\%)", fontsize=8)
 
 # Improve spacing and add LaTeX-safe suptitle (avoid Unicode ≥ and %)
 plt.subplots_adjust(left=0.06, right=0.94, top=0.93, bottom=0.08, wspace=WSPACE, hspace=HSPACE)
