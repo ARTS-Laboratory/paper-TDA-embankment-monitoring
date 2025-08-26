@@ -198,6 +198,21 @@ if both_classes:
                     linestyles=["-", "--", "-"],
                     linewidths=[1.1, 1.8, 1.1], zorder=2)
     ax.clabel(cs, inline=True, fmt={0.1:"0.1", 0.5:"0.5", 0.9:"0.9"}, fontsize=8)
+    
+    # 0.1 / 0.5 / 0.9 contours — 0.5 in RED
+    cs = ax.contour(XXd, YYd, proba, levels=[0.1, 0.5, 0.9],
+                colors=["tab:blue", "red", "tab:green"],
+                linestyles=["-", "--", "-"],
+                linewidths=[1.1, 1.8, 1.1], zorder=2)
+    ax.clabel(cs, inline=True, fmt={0.1: "0.1", 0.5: "0.5", 0.9: "0.9"}, fontsize=8)
+
+# >>> ADD THESE TWO MARGIN LINES (±0.25 around 0.5 → P=0.25 and P=0.75) <<<
+cs_margin = ax.contour(XXd, YYd, proba, levels=[0.25, 0.75],
+                       colors=["k", "k"], linestyles=["--", "--"],
+                       linewidths=1.2, zorder=2)
+ax.clabel(cs_margin, inline=True, fmt={0.25: "0.25", 0.75: "0.75"},
+          fontsize=7, colors="k")
+
 
 # Scatter: all filled circles (viridis by humidity)
 sc = ax.scatter(Z_plot[:,0], Z_plot[:,1],
