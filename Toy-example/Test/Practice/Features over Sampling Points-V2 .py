@@ -9,7 +9,7 @@ import re
 plt.rcParams.update({'text.usetex': True})  
 plt.rcParams.update({'font.family': 'serif'})  
 plt.rcParams.update({'font.serif': ['Times New Roman', 'Times', 'DejaVu Serif']})  
-plt.rcParams.update({'font.size': 6})  
+plt.rcParams.update({'font.size': 9})  
 plt.rcParams.update({'mathtext.rm': 'serif'})  
 plt.rcParams.update({'mathtext.fontset': 'custom'})  
 
@@ -142,12 +142,12 @@ for i in range(normalized_features.shape[1]):
         plt.plot(m_values, normalized_features[:, i], marker='o', linestyle='-', linewidth=0.8, markersize=4, label=label)
 
 # X-axis label and Y-axis label
-plt.xlabel("sample size ($m$)", fontsize=10)
-plt.ylabel("normalized median feature value", fontsize=10)
+plt.xlabel("sample size ($m$)", fontsize=9)
+plt.ylabel("normalized median feature value", fontsize=9)
 
 # Set the font size of x and y axis ticks
-plt.xticks(fontsize=8)
-plt.yticks(fontsize=8)
+plt.xticks(fontsize=9)
+plt.yticks(fontsize=9)
 
 # Adjust grid and alpha for lighter grid lines
 plt.grid(True, color='gray', linestyle='-', linewidth=0.5, alpha=0.3)

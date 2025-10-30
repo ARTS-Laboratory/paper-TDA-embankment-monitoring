@@ -1,4 +1,4 @@
-# logreg_binary_per_feature_twofigs_rowcbars_SHOWONLY_featname_bottom.py
+
 import re
 import numpy as np
 import pandas as pd
@@ -8,28 +8,28 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import LeaveOneOut, cross_val_score
 
-# =========================
-# 0) settings
-# =========================
+
+# data importing
+
 file_path = r"C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/TDA_PCA_template.xlsx"
 t_label = 28.0  # humidity threshold (%) for wet/dry labels
 
 # avoid MiKTeX font error
 use_tex = False
 
-# ---- figure layout controls (per figure) ----
-figsize        = (10.5, 10.0)   # size per 4×2 figure
+#  figure layout controls 
+figsize        = (6.5, 6.5)   # size per 4×2 figure
 nrows, ncols   = 4, 2
 wspace, hspace = 0.55, 0.90
-title_fs       = 9
-axis_fs        = 9
+title_fs       = 11
+axis_fs        = 11
 suptitle_y     = 0.98
 
-# one shared colorbar **per row** (to the right of the row)
+# one shared colorbar per row (to the right of the row)
 row_cbar_fraction = 0.035
 row_cbar_pad      = 0.04
 
-# ---- subplot style ----
+#  subplot style 
 grid_on     = True
 grid_ls     = "--"
 grid_lw     = 0.5
@@ -47,19 +47,19 @@ jitter_width   = 0.06
 show_dates        = False
 date_label_offset = (3, 3)
 
-# =========================
-# 1) global plotting style
-# =========================
+
+#  global plotting style
+
 plt.rcParams.update({'text.usetex': bool(use_tex)})
 plt.rcParams.update({'font.family': 'serif'})
 plt.rcParams.update({'font.serif': ['Times New Roman', 'Times', 'DejaVu Serif']})
-plt.rcParams.update({'font.size': 9})
+plt.rcParams.update({'font.size': 11})
 plt.rcParams.update({'mathtext.rm': 'serif'})
 plt.rcParams.update({'mathtext.fontset': 'custom'})
 
-# =========================
-# 2) canonical headers + helpers
-# =========================
+
+#  canonical headers 
+
 canon_features = [
     "persistence entropy (H0)","persistence entropy (H1)",
     "number of points (H0)","number of points (H1)",
@@ -81,9 +81,9 @@ def normalize_col_name(s: str) -> str:
 def keyize(s: str) -> str:
     return normalize_col_name(s).lower()
 
-# =========================
-# 3) load (first sheet only) + normalize headers
-# =========================
+
+#  load (first sheet only) + normalize headers
+
 if file_path.lower().endswith((".xlsx", ".xls")):
     df = pd.read_excel(file_path, sheet_name=0)
 elif file_path.lower().endswith(".csv"):
@@ -105,9 +105,9 @@ if missing:
     raise ValueError(f"Required columns not found after normalization: {missing}")
 df = df.rename(columns=rename_map)
 
-# =========================
-# 4) coerce numerics, labels, color scale
-# =========================
+
+# coerce numerics, labels, color scale
+
 df["humidity_percent"] = pd.to_numeric(df["humidity_percent"], errors="coerce")
 for c in canon_features:
     df[c] = pd.to_numeric(df[c], errors="coerce")
@@ -120,18 +120,18 @@ humidity = df["humidity_percent"].values
 if np.isnan(humidity).all():
     raise ValueError("humidity_percent is all NaN.")
 
-# Binary labels from threshold
+# binary labels from threshold
 y_all = (humidity >= t_label).astype(int)
 print(f"Label threshold = {t_label:.1f}% → dry: {(y_all==0).sum()}, wet: {(y_all==1).sum()}")
 
-# Shared color scale (actual humidity)
+# shared color scale (actual humidity)
 norm = plt.Normalize(vmin=np.nanmin(humidity), vmax=np.nanmax(humidity))
 cmap = plt.cm.viridis
 scalar_mappable = plt.cm.ScalarMappable(norm=norm, cmap=cmap)
 
-# =========================
-# 5) helper that plots one 4×2 figure with a colorbar per row
-# =========================
+
+# helper that plots one 4×2 figure with a colorbar per row
+
 def plot_grid_for(features_subset, fig_title_suffix):
     loo = LeaveOneOut()
 
@@ -212,10 +212,10 @@ def plot_grid_for(features_subset, fig_title_suffix):
         colors = cmap(norm(hum))
         dry   = (y == 0)
         wet   = ~dry
-        ax.scatter(x[dry], y_obs[dry], marker="x", s=point_s_dry,
-                   c=colors[dry], linewidths=point_lw, label="dry")
-        ax.scatter(x[wet], y_obs[wet], marker="o", s=point_s_wet, facecolors="none",
-                   edgecolors=colors[wet], linewidths=point_lw, label="wet")
+        ax.scatter(x[dry], y_obs[dry], marker="o", s=point_s_dry,
+           c=colors[dry], edgecolor='k', linewidths=point_lw, label="dry")
+        ax.scatter(x[wet], y_obs[wet], marker="o", s=point_s_wet,
+           c=colors[wet], edgecolor='k', linewidths=point_lw, label="wet")
 
         if show_dates:
             for xi, yi, dt in zip(x, y_obs, dts):
@@ -248,12 +248,17 @@ def plot_grid_for(features_subset, fig_title_suffix):
         cbar = fig.colorbar(scalar_mappable, ax=row_axes,
                             fraction=row_cbar_fraction, pad=row_cbar_pad)
         cbar.set_label(r"Soil moisture (\%)", fontsize=axis_fs)
-
+        
+       # These must match the colorbar normalization range
+        cbar.set_ticks([17, 22.6, 28.1, 33.7, 39.2, 44.8])
+        cbar.set_ticklabels(["17.0", "22.6","28.1","33.7", "39.2", "44.8"])  # Not set_yticklabels (for the new API)
+        cbar.ax.tick_params(labelsize=axis_fs) 
+        
     plt.show()
 
-# =========================
-# 6) split into two figures (8 + 8) and show
-# =========================
+
+# split into two figures (8 + 8) and show
+
 first8  = canon_features[:8]
 second8 = canon_features[8:]
 
