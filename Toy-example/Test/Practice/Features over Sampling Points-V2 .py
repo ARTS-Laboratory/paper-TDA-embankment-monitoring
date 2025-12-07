@@ -134,7 +134,7 @@ else:
 print("\nSelected features to plot:", selected_features)
 
 # Plot each feature vs m
-plt.figure(figsize=(6.5, 4), dpi=300)  # High DPI and shorter plot size
+plt.figure(figsize=(6.5, 4)) 
 
 for i in range(normalized_features.shape[1]):
     label = feature_labels[i] if i < len(feature_labels) else f"Feature {i+1}"
