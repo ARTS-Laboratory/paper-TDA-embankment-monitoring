@@ -148,12 +148,13 @@ class tda:
 
 def process_multiple_las_files():
     # 1) Specify the directory containing your .las files.
-    directory_path ="C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing"
+    #directory_path ="C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing"
+    directory_path ="C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz"
     
     
     # 2) List the filenames in the order you wish to process them. this command automatically calls several inputs
     file_list = [
-        "no_abnormality.las",
+        "2021-06.laz",
         #"surface_with_smooth_circular_cavity_20.las",
         # Add more filenames as needed...
     ]

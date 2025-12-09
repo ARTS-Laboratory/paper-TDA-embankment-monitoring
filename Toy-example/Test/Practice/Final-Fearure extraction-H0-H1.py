@@ -53,13 +53,13 @@ class tda:
         - Writes median_consensus_features.csv for that file.
         """
         
-        # Dynamically adjust `m` and `K` based on dataset size
-        #m = min(500, int(1 * pcd.shape[0]))  # Use 80% of available points, max 500
-        #K = max(3, min(10, int(0.05 * pcd.shape[0])))  # Adjust K dynamically
+         #Dynamically adjust `m` and `K` based on dataset size
+        m = min(500, int(0.1 * pcd.shape[0]))  # Use 80% of available points, max 500
+        K = max(3, min(10, int(0.05 * pcd.shape[0])))  # Adjust K dynamically
         
         # Sampling parameters 
-        m_percentage = 1  # Use 30% of data
-        K = 1    # Number of iterations.
+        #m_percentage = 1  # Use 30% of data
+        #K = 1    # Number of iterations.
         print(f"Using m={m} (sample size) and K={K} (iterations) for TDA.")
         
         features_list = []
@@ -155,11 +155,12 @@ class tda:
 
 def process_multiple_las_files():
     #  here is the directory containing the .las files.
-    directory_path ="C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing"
+    #directory_path ="C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing"
+    directory_path ="C:/Users/golzardm/Documents/Dataset-Slope-LiDAR-Embankment-SLidE/Data/2021-06/laz"
     
   #  here you can list the filenames that you wish to process them. (this command automatically calls several inputs_
     file_list = [
-        "3D_hump_3.las",
+        "2021-06.laz",
         #"surface_with_smooth_circular_cavity_20.las",
         # .....  add any files
     ]
