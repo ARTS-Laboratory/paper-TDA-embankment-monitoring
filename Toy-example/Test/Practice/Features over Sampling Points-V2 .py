@@ -5,13 +5,14 @@ from gtda.homology import VietorisRipsPersistence
 from gtda.diagrams import PersistenceEntropy, NumberOfPoints, Amplitude
 import re
 
-# LaTeX Formatting for Plots
-plt.rcParams.update({'text.usetex': True})  
-plt.rcParams.update({'font.family': 'serif'})  
-plt.rcParams.update({'font.serif': ['Times New Roman', 'Times', 'DejaVu Serif']})  
-plt.rcParams.update({'font.size': 9})  
-plt.rcParams.update({'mathtext.rm': 'serif'})  
-plt.rcParams.update({'mathtext.fontset': 'custom'})  
+
+plt.rcParams.update({'text.usetex': True})
+plt.rcParams.update({'font.family': 'serif'})
+plt.rcParams.update({'font.serif': ['Times New Roman', 'Times', 'DejaVu Serif']})
+plt.rcParams.update({'font.size': 8})
+plt.rcParams.update({'mathtext.rm': 'serif'})
+plt.rcParams.update({'mathtext.fontset': 'custom'})
+
 
 # Class definition for TDA
 class tda:
@@ -67,10 +68,10 @@ class tda:
         all_features = np.hstack((features_entropy, features_num, features_amp))
         return all_features
 
-# Main body of the program
+# from this section the main body of program starts
 
 # Load the LAS file
-file_path = "C:/Users/golzardm/Documents/paper-TDA-embankment-monitoring/Pre-processing/3D_hump_5.las"
+file_path = "surface_with_smooth_circular_cavity_20.las"   # The directory need to be changed in some cases
 print("Opening LAS file:", file_path)
 with laspy.open(file_path) as f:
     las = f.read()
@@ -81,12 +82,11 @@ z = las.z
 point_cloud = np.vstack((x, y, z)).T
 print("Original point cloud shape:", point_cloud.shape)
 
-# TDA object
+# Use the full point cloud for the random sampling consensus procedure.
 my_tda = tda(homo_dim=1, fts='all')
 
-# Sampling sizes and number of iterations
-percentages = [0.01, 0.05, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0]  # Define percentages of total points
-m_values = [min(5000, int(p * point_cloud.shape[0])) for p in percentages]  # Limit to max 5000 points
+# sample sizes and number of iterations here can be defined
+m_values = [50, 200, 500, 1000, 1500, 2500, 3500, 4500]
 K = 10  # number of iterations
 median_features_list = []
 
@@ -102,29 +102,31 @@ normalized_features = (median_features_array - median_features_array.min(axis=0)
     median_features_array.max(axis=0) - median_features_array.min(axis=0)
 )
 
-# Flipping the columns to start from zero to one
+# fliping the columns to start from zero to one
 for i in range(normalized_features.shape[1]):
     if normalized_features[0, i] > normalized_features[-1, i]:
         normalized_features[:, i] = 1 - normalized_features[:, i]
 
-# Feature labeling
+# feature labeling
 feature_labels = [
-    "persistence entropy (H0)", "persistence entropy (H1)",
-    "number of points (H0)", "number of points (H1)",
-    "bottleneck  (H0)", "bottleneck  (H1)",
-    "wasserstein  (H0)", "wasserstein  (H1)",
-    "landscape (H0)", "landscape (H1)",
-    "persistence image (H0)", "persistence image (H1)",
-    "Betti (H0)", "Betti (H1)",
-    "heat (H0)", "heat (H1)"
+    "entropy H0", "entropy H1",
+    "numPoints H0", "numPoints H1",
+    "bottleneck H0", "bottleneck H1",
+    "wasserstein H0", "wasserstein H1",
+    "landscape H0", "landscape H1",
+    "image H0", "image H1",
+    "Betti H0", "Betti H1",
+    "heat H0", "heat H1"
 ]
 
+# this section important: here we can select the desired features on concole by adding features nymber
 print("\nAvailable features:")
 for idx, feature in enumerate(feature_labels):
     print(f"{idx + 1}: {feature}")
 
 user_input = input("\nEnter the feature numbers you want to plot (comma-separated, or type 'all' to plot all): ")
 
+# Process user input
 if user_input.lower() == 'all':
     selected_features = feature_labels
 else:
@@ -133,33 +135,33 @@ else:
 
 print("\nSelected features to plot:", selected_features)
 
-# Plot each feature vs m
-plt.figure(figsize=(6.5, 4)) 
+# RIGHT HERE - before plot section
+custom_ticks = [0, 1000, 2000, 3000, 4000, 5000]
+print("X-axis ticks:", custom_ticks)
+
+# plot each feature vs m
+plt.figure(figsize=(6.5, 2.5))
 
 for i in range(normalized_features.shape[1]):
     label = feature_labels[i] if i < len(feature_labels) else f"Feature {i+1}"
     if label in selected_features:
-        plt.plot(m_values, normalized_features[:, i], marker='o', linestyle='-', linewidth=0.8, markersize=4, label=label)
+        plt.plot(m_values, normalized_features[:, i], marker='o', label=label)
 
-# X-axis label and Y-axis label
-plt.xlabel("sample size ($m$)", fontsize=9)
-plt.ylabel("normalized median feature value", fontsize=9)
+# Axis labels
+plt.xlabel("sample size (m)", fontsize=8)
+plt.ylabel("normalized median feature value", fontsize=8)
 
-# Set the font size of x and y axis ticks
-plt.xticks(fontsize=9)
-plt.yticks(fontsize=9)
+plt.xticks([0, 1000, 2000, 3000, 4000, 5000], fontsize=8)
+plt.yticks(fontsize=8)
 
-# Adjust grid and alpha for lighter grid lines
-plt.grid(True, color='gray', linestyle='-', linewidth=0.5, alpha=0.3)
+leg = plt.legend(loc='lower right', fontsize=8, frameon=True)
+leg.get_frame().set_facecolor('white')  # white background
+leg.get_frame().set_alpha(1.0)          # soild white
+plt.grid(True, color='0.85', linewidth=0.8)  
 
-# Adjusted legend: smaller font size, transparent background, reduced spacing
-plt.legend(loc='lower right', bbox_to_anchor=(1.0, 0.0), framealpha=1, fontsize=7.5, frameon=True)
 
-# Remove extra whitespace
-plt.tight_layout(pad=0)
-
-# Solid white background
-plt.gcf().set_facecolor('white')
-
-# Show the plot
+plt.tight_layout()
 plt.show()
+
+
+
